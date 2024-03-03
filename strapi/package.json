@@ -1,0 +1,42 @@
+{
+  "name": "my-project",
+  "private": true,
+  "version": "0.2.0",
+  "description": "PhilEdu's Strapi",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.11",
+    "@strapi/icons": "^1.14.1",
+    "@strapi/plugin-i18n": "4.19.0",
+    "@strapi/plugin-users-permissions": "4.19.0",
+    "@strapi/strapi": "4.19.0",
+    "better-sqlite3": "^9.4.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^5.3.4",
+    "sharp": "^0.33.2",
+    "strapi-plugin-meilisearch": "^0.10.0",
+    "styled-components": "^5.3.3"
+  },
+  "author": {
+    "name": "Przemysław Kusiak"
+  },
+  "strapi": {
+    "uuid": "0b715a3c-ad6c-4448-b2bb-fecc3ebfae07"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.70.0",
+    "sass-loader": "^14.0.0",
+    "webpack": "^5.90.0"
+  }
+}

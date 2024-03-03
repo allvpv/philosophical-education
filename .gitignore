@@ -1,0 +1,29 @@
+# MacOS
+.DS_Store
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# NPM
+node_modules
+package-lock.json
+
+/nginx/website_static
+/nginx/strapi_public
+/databases
+/systemd/*.service
+
+# Website
+/website/builds
+/apache/_next
+/meilisearch
+/website/out/
+/envs/*.private
+
+# Strapi
+/strapi/builds
+/strapi/.strapi
+/strapi/config/.server.ts.swp
+/strapi/dist
+/strapi/.strapi-updater.json

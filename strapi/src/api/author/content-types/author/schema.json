@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "authors",
+  "info": {
+    "singularName": "author",
+    "pluralName": "authors",
+    "displayName": "Issues ➔ Articles ➔ Authors",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullname": {
+      "type": "string",
+      "required": true
+    },
+    "orcid": {
+      "type": "string",
+      "regex": "^(\\d{4}-){3}\\d{3}(\\d|X)$",
+      "unique": true,
+      "required": false
+    },
+    "cejsh": {
+      "type": "string",
+      "unique": true
+    }
+  }
+}

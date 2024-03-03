@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "issues",
+  "info": {
+    "singularName": "issue",
+    "pluralName": "issues",
+    "displayName": "Issues",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label_en": {
+      "type": "string",
+      "unique": true
+    },
+    "label_pl": {
+      "type": "string",
+      "unique": true
+    },
+    "short_description_en": {
+      "type": "string"
+    },
+    "short_description_pl": {
+      "type": "string"
+    },
+    "pdf": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "editors": {
+      "type": "string"
+    },
+    "long_description_en": {
+      "type": "richtext"
+    },
+    "long_description_pl": {
+      "type": "richtext"
+    },
+    "volume": {
+      "type": "integer",
+      "required": false,
+      "unique": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "issue"
+    }
+  }
+}

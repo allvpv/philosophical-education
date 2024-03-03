@@ -1,0 +1,15 @@
+{
+  "name": "Edukacja Filozoficzna",
+  "short_name": "EF",
+  "description": "Recenzowane czasopismo naukowe o filozofii.",
+  "categories": ["education", "philosophy", "science", "journals"],
+  "start_url": "/archive/latest",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/hdfavicon.ico",
+      "sizes": "64x64 128x128 192x192 256x256 384x384 512x512",
+      "type": "image/ico"
+    }
+  ]
+}

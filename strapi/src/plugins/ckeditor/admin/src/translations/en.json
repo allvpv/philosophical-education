@@ -1,0 +1,7 @@
+{
+  "ckeditor.label": "HTML Editor",
+  "ckeditor.description": "Edit your HTML content",
+  "ckeditor.preset.label": "Choose editor version",
+  "ckeditor.required.label": "Required field",
+  "ckeditor.required.description": "You won't be able to create an entry if this field is empty"
+}

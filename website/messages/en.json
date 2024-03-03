@@ -1,0 +1,43 @@
+{
+  "Themes": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "bw": "Mono (White)",
+    "wb": "Mono (Black)"
+  },
+  "Metadata": {
+    "title": "Edukacja Filozoficzna",
+    "description": "High-quality, peer-reviewed journal published by the University of Warsaw",
+    "archive": "Archive",
+    "about": "About the Journal"
+  },
+  "Header": {
+    "main": "Home",
+    "archive": "Archive"
+  },
+  "Sidebar": {
+    "search": "Search in archive…"
+  },
+  "Article": {
+    "backText": "Back",
+    "copiedText": "Copied!"
+  },
+  "Search": {
+    "search": "Search...",
+    "range": "Range",
+    "reset": "Reset",
+    "from": "from",
+    "to": "to",
+    "noResults": "No results for ",
+    "dateAscending": "date (asc.)",
+    "dateDescending": "date (desc.)",
+    "authors": "authors",
+    "title": "title",
+    "abstract": "abstract",
+    "keywords": "keywords",
+    "remaining": "other",
+    "sort": "sort",
+    "include": "include"
+  }
+}

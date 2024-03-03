@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "order_issues",
+  "info": {
+    "singularName": "order-issue",
+    "pluralName": "order-issues",
+    "displayName": "Issues ➔ Display order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "issues": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::issue.issue"
+    }
+  }
+}

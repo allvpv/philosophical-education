@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "keywords",
+  "info": {
+    "singularName": "keyword",
+    "pluralName": "keywords",
+    "displayName": "Issues ➔ Articles ➔ Keywords"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "keyword": {
+      "type": "string",
+      "regex": "^[^,]+$",
+      "required": true
+    },
+    "locale": {
+      "type": "enumeration",
+      "enum": [
+        "pl",
+        "en"
+      ],
+      "required": true
+    }
+  }
+}

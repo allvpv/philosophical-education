@@ -1,0 +1,43 @@
+{
+  "Themes": {
+    "light": "Jasny",
+    "dark": "Ciemny",
+    "system": "Systemowy",
+    "bw": "Mono (biały)",
+    "wb": "Mono (czarny)"
+  },
+  "Metadata": {
+    "title": "Edukacja Filozoficzna",
+    "description": "Wysokiej jakości, recenzowane czasopismo publikowane przez Uniwersytet Warszawski",
+    "archive": "Archiwum",
+    "about": "O nas"
+  },
+  "Header": {
+    "main": "Strona główna",
+    "archive": "Archiwum"
+  },
+  "Sidebar": {
+    "search": "Szukaj w archiwum…"
+  },
+  "Article": {
+    "backText": "Wstecz",
+    "copiedText": "Skopiowano!"
+  },
+  "Search": {
+    "search": "Szukaj...",
+    "range": "Zakres",
+    "reset": "Resetuj",
+    "from": "od",
+    "to": "do",
+    "noResults": "Brak wyników dla ",
+    "dateAscending": "data (rosnąco)",
+    "dateDescending": "data (malejąco)",
+    "authors": "autorzy",
+    "title": "tytuł",
+    "abstract": "streszczenie",
+    "keywords": "kluczowe",
+    "remaining": "inne",
+    "sort": "sortuj",
+    "include": "uwzględnij"
+  }
+}

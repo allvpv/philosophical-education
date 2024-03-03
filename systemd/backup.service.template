@@ -1,0 +1,13 @@
+[Unit]
+Description=PhilEdu backup (service)
+Wants=backup.timer
+
+[Service]
+Type=oneshot
+User=${USER}
+Restart=on-failure
+WorkingDirectory=${BACKUP}
+ExecStart=${REPO}/scripts/backup.sh ${BACKUP}
+
+[Install]
+WantedBy=multi-user.target

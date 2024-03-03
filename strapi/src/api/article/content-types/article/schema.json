@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Issues ➔ Articles",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title_en": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "title_pl": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "doi": {
+      "type": "string",
+      "regex": "^10\\.\\d{4,9}\\/[-._;()/:A-Za-z0-9]+$",
+      "unique": true
+    },
+    "abstract_pl": {
+      "type": "richtext"
+    },
+    "abstract_en": {
+      "type": "richtext"
+    },
+    "pdf": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "pages": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::keyword.keyword"
+    },
+    "authors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::author.author"
+    },
+    "issue": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::issue.issue",
+      "inversedBy": "articles"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[Unit]
+Description=Edukacja Filozoficzna Website
+After=strapi.service
+Requires=strapi.service
+
+[Service]
+Type=simple
+User=${USER}
+Restart=on-failure
+WorkingDirectory=${REPO}
+ExecStart=${REPO}/scripts/run_jailed.sh website
+
+[Install]
+WantedBy=multi-user.target
