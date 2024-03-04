@@ -17,9 +17,9 @@ FIFO="${TEMP}/fifo"
 SOCK="${TEMP}/sock"
 
 # FIFOs to communicate and prevent races
-mkfifo ${FIFO}_bwrap
-mkfifo ${FIFO}_slirp
-mkfifo ${FIFO}_container
+mkfifo "${FIFO}_bwrap"
+mkfifo "${FIFO}_slirp"
+mkfifo "${FIFO}_container"
 
 # We don't care about a "broken pipe"
 trap "" PIPE
@@ -52,7 +52,7 @@ JAIL_COMMON=(
   --symlink usr/sbin /sbin
   --symlink usr/lib /lib
   --symlink usr/lib64 /lib64
-  --bind ${FIFO}_container /tmp/fifo_container
+  --bind "${FIFO}_container" /tmp/fifo_container
   --ro-bind "${REPO}/scripts/passwd.jail" /etc/passwd
   --uid 1000 --gid 1000
   --clearenv
@@ -69,9 +69,6 @@ JAIL_COMMON=(
   --new-session
   --hostname website-jail
 )
-
-# Kill background processes and remove $TEMP on exit
-trap 'kill $(jobs -p); rm -fr ${TEMP}' EXIT
 
 if [[ "$1" == "website" ]]
 then

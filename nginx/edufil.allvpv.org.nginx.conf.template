@@ -29,14 +29,14 @@ server {
   # Next.js
   #
   location / {
-    root /home/pkusiak/philedu/repo/nginx/website_public/;
+    root ${REPO}/nginx/website_public/;
     try_files $uri @next;
 
     add_header Cache-Control "max-age=31536000";
   }
 
    location /_next/static/ {
-    alias /home/pkusiak/philedu/repo/nginx/website_static/;
+    alias ${REPO}/nginx/website_static/;
     add_header Cache-Control "max-age=31536000";
    }
 
@@ -64,7 +64,7 @@ server {
   }
 
   location /strapi/uploads/ {
-    alias /home/pkusiak/philedu/repo/nginx/strapi_public/uploads/;
+    alias ${REPO}/nginx/strapi_public/uploads/;
     add_header Cache-Control "max-age=31536000";
   }
 

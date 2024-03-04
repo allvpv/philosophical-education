@@ -7,20 +7,17 @@ digitizing the journal's resources.
 
 
 ### Overview
-- Contenerization is not used for practical reasons (think of a „local” sysadmin
-  managing a bunch of Wordpress websites on his Debian machine). Our tools must
-  be familiar and cannot have a complicated pipeline.
-
-  To (hopefully) achieve some security, I've used `bubblewrap` (a tiny wraper over
-  Linux namespaces), `slirp4netns` (user-mode networking) and a bunch of bash
-  scripts to separate as much as possible.
+- Contenerization is not used for practical reasons. To prevent privilege
+  escalation, I've used `bubblewrap` (a tiny wraper over Linux namespaces),
+  `slirp4netns` (user-mode networking) and a bunch of bash scripts.
 
 - Front-end uses Next.js and React. Strapi is an incredibly heavy CMS to manage
   the articles/issues and static content. Meilisearch is amazing search engine
   compatible with Algolia front-end libraries.
 
-  ⚠️  I'm not a React/Next.js native speaker, so the code is... ugly. But it
-  works very well and renders pretty website :)) (You have been warned, tho).
+  ⚠️  I'm not a React/Next.js guy, so the code is... quite ugly in some places.
+  But it works very well and renders pretty website. (You have been warned,
+  tho).
 
 - This program is free software: you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free Software
@@ -30,7 +27,7 @@ digitizing the journal's resources.
   - Setup is easy; everything should be self-explanatory (take a look at the
     `scripts/`, `envs/`, `nginx/`, etc.).
   - *Requirements.*
-    `nginx`, `bubblewrap`, `fzf` `node`, `npm`, `rsync`, `git`, `base64`,
+    `nginx`, `bubblewrap`, `fzf`, `node`, `npm`, `rsync`, `git`, `base64`,
     `slirp4netns`, `jq`.
   - Database.
     ```
@@ -55,5 +52,5 @@ digitizing the journal's resources.
     `scripts/new_build.sh`, `scripts/select_build.sh`.
   - Install Meilisearch.
   - Create `envs/masterkey.env.private` and set `MEILI_MASTER_KEY`.
-  - Put pubilc search key in `NEXT_PUBLIC_MEILISEARCH_KEY` in `envs/website.env`.
+  - Set `NEXT_PUBLIC_MEILISEARCH_KEY` in `envs/website.env`.
   - Use `scripts/run.sh` directly or set up `systemd` services
