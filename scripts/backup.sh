@@ -8,6 +8,7 @@ REPO="${SCRIPT%/*/*}"
 
 if [[ "$#" -eq 0 || ! -d "${1}" ]]; then
   echo "Provide a valid backup directory as a first argument" 1>&2
+  exit 1
 fi
 
 BACKUP_DIR="${1}"
