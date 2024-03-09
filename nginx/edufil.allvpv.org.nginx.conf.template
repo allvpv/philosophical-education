@@ -83,6 +83,6 @@ server {
 
   location / {
    default_type text/plain;
-   return 301 "https://edufil.allvpv.org$remote_addr";
+   return 301 "https://edufil.allvpv.org$request_uri";
   }
 }
