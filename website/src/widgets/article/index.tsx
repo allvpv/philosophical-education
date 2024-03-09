@@ -5,7 +5,13 @@ import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { memo } from 'react';
 
-import { MutableRefObject, useRef, useState, useEffect, useLayoutEffect } from 'react';
+import {
+  MutableRefObject,
+  useRef,
+  useState,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { Transition, Popover, Switch } from '@headlessui/react';
 import { useSearchParams } from 'next/navigation';
 
@@ -16,36 +22,39 @@ import useOptions from '@/helpers/hooks/use_options';
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 const getStrapiUrl = (suffix: string) => `${STRAPI_URL}${suffix}`;
 
-function ArticleWidgetHighlightHandler({ id, reference, children } : any) {
+function ArticleWidgetHighlightHandler({ id, reference, children }: any) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  
-  const _highlight = parseInt(searchParams.get("highlight") ?? "NaN");
-  const highlight = isNaN(_highlight) ? undefined :  _highlight;
+
+  const _highlight = parseInt(searchParams.get('highlight') ?? 'NaN');
+  const highlight = isNaN(_highlight) ? undefined : _highlight;
 
   useEffect(() => {
     if (highlight === id) {
       const timeout = setTimeout(() => {
-        reference.current?.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'center'});
+        reference.current?.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center',
+          block: 'center',
+        });
       }, 100);
 
       return () => clearTimeout(timeout);
     }
   }, []); // Notice empty dependency array:
-          // You don't want this to scroll each time pathname is changed
-  
+  // You don't want this to scroll each time pathname is changed
+
   return (
-    <div className={clsx(
-         "relative h-full w-full overflow-hidden rounded-3xl",
-          id === highlight &&
-              "ring-4 [.light_&]:ring-default-700 [.dark_&]:ring-default-100",
-          id === highlight &&
-              "[.bw_&]:ring-black [.wb_&]:ring-black",
-          id === highlight &&
-              "[.bw_&]:ring-4 [.wb_&]:ring-8",
-       )}>
-       {children}
-     </div>
+    <div
+      className={clsx(
+        'relative h-full w-full overflow-hidden rounded-3xl',
+        id === highlight &&
+          'ring-4 [.dark_&]:ring-default-100 [.light_&]:ring-default-700',
+        id === highlight && '[.bw_&]:ring-black [.wb_&]:ring-black',
+        id === highlight && '[.bw_&]:ring-4 [.wb_&]:ring-8',
+      )}>
+      {children}
+    </div>
   );
 }
 
@@ -82,21 +91,24 @@ export function ArticleWidget({
     return (article as any)[primary] ?? (article as any)[fallback];
   }
 
-  const hasORCID = article.authors.some((author: ArticleAuthor) => !!author.orcid);
+  const hasORCID = article.authors.some(
+    (author: ArticleAuthor) => !!author.orcid,
+  );
   const hasDOI = !!article.doi;
-  const hasCEJSH = article.authors.some((author: ArticleAuthor) => !!author.cejsh);
+  const hasCEJSH = article.authors.some(
+    (author: ArticleAuthor) => !!author.cejsh,
+  );
   const hasUrl = !!article.PDF?.url;
 
   return (
     <Popover
       className={clsx(
-        "before:colors-article-widget group/article relative ",
-        "before:absolute before:left-0 before:top-0 before:h-full before:w-full ",
-        "before:rounded-3xl rounded-3xl",
+        'before:colors-article-widget group/article relative ',
+        'before:absolute before:left-0 before:top-0 before:h-full before:w-full ',
+        'rounded-3xl before:rounded-3xl',
       )}
       id={article.id.toString()}
-      ref={ref}
-    >
+      ref={ref}>
       {({ open }) => (
         <ArticleWidgetHighlightHandler id={article.id} reference={ref}>
           <div
@@ -182,10 +194,11 @@ const ArticleAuthorTag = ({
 }) => (
   <span className="article-author-tags">
     <span> </span>
-    <a href={`${href}/${subPath}`}
-       target="_blank"
-       rel="noopener noreferrer"
-       className={classForTag}>
+    <a
+      href={`${href}/${subPath}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={classForTag}>
       <span className="mr-1 text-xs">{subPath}</span>
       {icon}
     </a>
@@ -209,20 +222,24 @@ function ArticleAuthors({
       {article.authors.map((author: ArticleAuthor, i: number) => (
         <span key={i}>
           {i != 0 ? options.showORCID || options.showCEJSH ? <br /> : ', ' : ''}
-          <a className={clsx(
+          <a
+            className={clsx(
               'colors-author colors-author-decoration relative text-base underline decoration-[3px]',
               'cursor-pointer',
               options.showORCID && 'mr-1',
             )}
             onClick={(e) => {
-            // Make sure this constant (640) is synchronized with Tailwind „sm”
-            // parameter TODO: Synchronize with Tailwind „sm” automatically.
-              if (document.body.clientWidth > 640) { // „Desktop” mode
-                document.documentElement.scrollTop = 0
+              // Make sure this constant (640) is synchronized with Tailwind „sm”
+              // parameter TODO: Synchronize with Tailwind „sm” automatically.
+              if (document.body.clientWidth > 640) {
+                // „Desktop” mode
+                document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0;
               }
 
-              router.push(getLinkForRouterForward(author.fullName, 'author'), { scroll: false });
+              router.push(getLinkForRouterForward(author.fullName, 'author'), {
+                scroll: false,
+              });
               e.preventDefault();
             }}>
             {author.fullName}
@@ -309,12 +326,12 @@ function ArticleTitle({
 }
 
 function getLinkForRouterForward(query: string, field: string) {
-  const options = field === 'keyword' ? 8 : 1;  // :)) TODO
+  const options = field === 'keyword' ? 8 : 1; // :)) TODO
 
-  return `?${(new URLSearchParams({
+  return `?${new URLSearchParams({
     query: query,
     options: options.toString(),
-  })).toString()}`;
+  }).toString()}`;
 }
 
 function ArticleKeywords({
@@ -337,22 +354,23 @@ function ArticleKeywords({
                  text-justify text-sm leading-relaxed">
       {localizedKeywords.map((k: any, i: number) => (
         <span key={i} className="first-of-type:odd:ml-7">
-          <a className="colors-keyword -mx-px cursor-pointer overflow-hidden rounded-lg
+          <a
+            className="colors-keyword -mx-px cursor-pointer overflow-hidden rounded-lg
                         border px-[6px] py-0 transition-colors"
-              onClick={(e) => {
-                // Make sure this constant (640) is synchronized with Tailwind „sm”
-                // parameter TODO: Synchronize with Tailwind „sm” automatically.
-                if (document.body.clientWidth > 640) {
-                  document.documentElement.scrollTop = 0
-                  document.body.scrollTop = 0;
-                }
+            onClick={(e) => {
+              // Make sure this constant (640) is synchronized with Tailwind „sm”
+              // parameter TODO: Synchronize with Tailwind „sm” automatically.
+              if (document.body.clientWidth > 640) {
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+              }
 
-                router.push(getLinkForRouterForward(k.keyword, 'keyword'), {
-                    scroll: false
-                });
+              router.push(getLinkForRouterForward(k.keyword, 'keyword'), {
+                scroll: false,
+              });
 
-                e.preventDefault();
-              }}>
+              e.preventDefault();
+            }}>
             {k.keyword}
           </a>
           <a> </a>
@@ -374,7 +392,7 @@ function ArticleMainButtons({
 
   return (
     <figure className="float-right mb-2 ml-3 mt-1 pr-5 text-sm">
-      <div className="flex flex-col justify-center gap-2" >
+      <div className="flex flex-col justify-center gap-2">
         {
           <ButtonLanguage
             options={options}
@@ -403,8 +421,8 @@ function ArticleAbstract({ article, getLocalized }: any) {
   const sanitized_abstract = getLocalized('sanitized_abstract');
 
   useEffect(() => {
-      if (expandButtonRef.current) {
-        const ref = expandButtonRef.current;
+    if (expandButtonRef.current) {
+      const ref = expandButtonRef.current;
 
       if (ref.scrollHeight <= ref.clientHeight * 1.5) {
         setShowChevron(false);
@@ -446,13 +464,20 @@ function ArticleAbstract({ article, getLocalized }: any) {
           className={clsx(
             'hoverable:scrollbar-maclike hoverable:scrollbar-sidebar-colors ml-7 mr-5',
             'block font-serif text-base transition-[max-height] duration-300 ease-allvpv',
-            showChevron && showLot && 'group-[.clicked]/abstract:max-h-[calc(10lh+16px)]',
-            showChevron && showLot && 'group-[.clicked]/abstract:not-supports-lh:max-h-[256px]',
+            showChevron &&
+              showLot &&
+              'group-[.clicked]/abstract:max-h-[calc(10lh+16px)]',
+            showChevron &&
+              showLot &&
+              'group-[.clicked]/abstract:not-supports-lh:max-h-[256px]',
             showChevron && 'group-[.unclicked]/abstract:max-h-[calc(2lh+16px)]',
             showChevron && 'group-[.clicked]/abstract:pr-6',
-            showChevron && 'group-[.unclicked]/abstract:not-supports-lh:max-h-[64px]',
-            showChevron && 'group-[.unclicked:hover]/abstract:hoverable:max-h-[calc(3lh+16px)]',
-            showChevron && 'group-[.unclicked:hover]/abstract:hoverable:not-supports-lh:max-h-[89px]',
+            showChevron &&
+              'group-[.unclicked]/abstract:not-supports-lh:max-h-[64px]',
+            showChevron &&
+              'group-[.unclicked:hover]/abstract:hoverable:max-h-[calc(3lh+16px)]',
+            showChevron &&
+              'group-[.unclicked:hover]/abstract:hoverable:not-supports-lh:max-h-[89px]',
           )}
           ref={expandButtonRef}>
           <textpadding className="block h-[8px]" />

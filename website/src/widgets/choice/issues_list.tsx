@@ -83,7 +83,8 @@ export default function IssuesList({
   };
 
   return list.length > 0 ? (
-    <div className="relative flex h-12 grow items-stretch overflow-visible
+    <div
+      className="relative flex h-12 grow items-stretch overflow-visible
                     transition-[height]">
       {leftButtonVisible && (
         <>
@@ -156,12 +157,12 @@ const ScrollButton = ({
 }: any) => (
   <div
     className={
-      `colors-choice-chevron-bg flex h-full w-10 sm:w-12 items-center ` +
+      `colors-choice-chevron-bg flex h-full w-10 items-center sm:w-12 ` +
       `justify-center ${appendClass} overflow-visible`
     }>
     <button
       className={
-        `hover:colors-choice-chevron-hover h-10 w-10 sm:h-12 sm:w-12 rounded-full ` +
+        `hover:colors-choice-chevron-hover h-10 w-10 rounded-full sm:h-12 sm:w-12 ` +
         `flex items-center justify-center overflow-visible`
       }
       onClick={onClick}>
@@ -181,7 +182,7 @@ const ScrollGradient = ({ direction, appendClass = '' }: any) => {
   return (
     <data
       className={
-        `colors-choice-gradient h-full w-8 from-transparent xs:w-12 sm:w-16 ` +
+        `colors-choice-gradient h-full w-8 from-transparent sm:w-16 xs:w-12 ` +
         `pointer-events-none ${gradientDir} ${appendClass}`
       }
     />

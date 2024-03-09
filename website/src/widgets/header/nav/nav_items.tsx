@@ -26,12 +26,12 @@ export default function NavItems({
         return (
           <li
             className={clsx(
-              "py-1 transition-[filter] items-stretch rounded-full transition-colors",
-              isActive && "colors-button-nav hover:colors-button-nav-amplify",
+              'items-stretch rounded-full py-1 transition-[filter] transition-colors',
+              isActive && 'colors-button-nav hover:colors-button-nav-amplify',
             )}
             key={i}>
             <Link
-              className="py-1 px-[12.5px] xl:px-[15px]"
+              className="px-[12.5px] py-1 xl:px-[15px]"
               href={item.href}
               locale={locale === 'pl' ? 'pl' : 'en'}>
               {item.text}

@@ -60,7 +60,7 @@ export default async function Layout({
     dateAscending: t('dateAscending'),
     dateDescending: t('dateDescending'),
     sort: t('sort'),
-    include: t('include')
+    include: t('include'),
   };
 
   if (!contentMetadata) {

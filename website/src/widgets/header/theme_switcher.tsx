@@ -12,7 +12,7 @@ type ThemeSwitcherProps = {
 };
 
 export default function ThemeSwitcher({ themes }: ThemeSwitcherProps) {
-  const [ mounted, setMounted ] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   // useEffect only runs on the client; only when mounted, now we can show the full the UI

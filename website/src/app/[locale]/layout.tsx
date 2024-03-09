@@ -37,7 +37,10 @@ export default async function LocaleLayout({
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64" />
         <link rel="apple-touch-icon" href="/touchicon.png" />
-        <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
       </head>
       <body
         className={`colors-body-background font-sans ${Fonts.map(

@@ -5,8 +5,12 @@ export default function getMasonry(widgets: JSX.Element[]) {
 
   let breakElements = [
     () => <React.Fragment key={uniqueKey++} />,
-    () => <div className="block break-before-column lx:hidden" key={uniqueKey++} />,
-    () => <div className="hidden break-before-column lx:block" key={uniqueKey++} />,
+    () => (
+      <div className="block break-before-column lx:hidden" key={uniqueKey++} />
+    ),
+    () => (
+      <div className="hidden break-before-column lx:block" key={uniqueKey++} />
+    ),
   ];
 
   let columnLayouts = [1, 2, 3];
@@ -38,14 +42,15 @@ export default function getMasonry(widgets: JSX.Element[]) {
       } else {
         return left - 1;
       }
-   });
+    });
 
     if (i < widgets.length) elements.push(widgets[i]);
   }
 
   return (
-    <div className="gap-3 sm:columns-2 lx:columns-3
-                    sm:px-[24px] sm:pt-[24px] px-[10px] pb-[24px] pt-1">
+    <div
+      className="gap-3 px-[10px] pb-[24px]
+                    pt-1 sm:columns-2 sm:px-[24px] sm:pt-[24px] lx:columns-3">
       {elements}
     </div>
   );

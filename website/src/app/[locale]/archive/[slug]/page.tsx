@@ -108,7 +108,7 @@ export default async function ArchivePage({
 
   let widgets = issue.articles.map((article: Article) => (
     <div
-      className="pt-[6px] pb-[6px] min-w-[290px] max-w-[450px]"
+      className="min-w-[290px] max-w-[450px] pb-[6px] pt-[6px]"
       key={`${issue.label_en}-${article.number}`}>
       <ArticleWidgetMemoized
         translations={translations}

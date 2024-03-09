@@ -35,8 +35,16 @@ const IconDownload = () => (
 
 const IconExternal = () => (
   <span className="hidden xs:block">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3 mt-[-2px] mb-1 ml-[-4px]">
-      <path fillRule="evenodd" d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0Z" clipRule="evenodd" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      className="mb-1 ml-[-4px] mt-[-2px] h-3 w-3">
+      <path
+        fillRule="evenodd"
+        d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0Z"
+        clipRule="evenodd"
+      />
     </svg>
   </span>
 );
@@ -122,7 +130,8 @@ export function InfiniteHits({
             ref={sentinelRef}
             className="mb-2 flex h-10 items-center justify-center"
             aria-hidden="true">
-            <div className="dot-pulse dot-pulse-colors
+            <div
+              className="dot-pulse dot-pulse-colors
                             before:dot-pulse-colors after:dot-pulse-colors"></div>
           </li>
         )}
@@ -196,28 +205,25 @@ function SearchHitAuthors({ hit }: any) {
       })}
     </div>
   ) : null;
-};
+}
 
 const SearchHitIssue = ({ hit, locale }: any) => {
   const issueLabelWithLang = hit.issue
-    ? ((locale === 'pl' ? hit.issue.label_pl : hit.issue.label_en) ??
+    ? (locale === 'pl' ? hit.issue.label_pl : hit.issue.label_en) ??
       hit.issue.label_pl ??
-      hit.issue.label_en)
+      hit.issue.label_en
     : null;
 
   return issueLabelWithLang ? (
     <Link
       href={`${slugifyIssue(hit.issue.label_en, hit.issue.label_pl)}?highlight=${hit.id}`}
-      scroll={false}
-    >
+      scroll={false}>
       <button
-        className="colors-searchhit-download w-24 xs:w-auto
-                   rounded-lg px-2 py-0 align-top ml-2 text-sm
-                   font-medium transition-colors flex items-center gap-1">
-        <IconIssue /> 
-        <p className="truncate">
-          {issueLabelWithLang}
-        </p>
+        className="colors-searchhit-download ml-2 flex
+                   w-24 items-center gap-1 rounded-lg px-2 py-0
+                   align-top text-sm font-medium transition-colors xs:w-auto">
+        <IconIssue />
+        <p className="truncate">{issueLabelWithLang}</p>
         <IconExternal />
       </button>
     </Link>
@@ -225,11 +231,11 @@ const SearchHitIssue = ({ hit, locale }: any) => {
 };
 
 const SearchHitPdf = ({ hit }: any) => {
-  return (hit.pdf && hit.pdf.url) ? (
+  return hit.pdf && hit.pdf.url ? (
     <a href={STRAPI_URL + hit.pdf.url} target="_blank">
       <button
-        className="colors-searchhit-download inline rounded-lg px-2 py-0 align-top
-                   text-sm font-medium transition-colors ml-2">
+        className="colors-searchhit-download ml-2 inline rounded-lg px-2 py-0
+                   align-top text-sm font-medium transition-colors">
         <span className="flex items-center gap-1">
           <IconDownload /> PDF
         </span>
@@ -261,8 +267,8 @@ const SearchHitAbstract = ({ hit, locale }: any) => {
 const SearchHitKeywords = ({ hit, locale }: any) => {
   const keywordsWithLang = augmentFieldWithLang(hit, 'keywords', locale);
 
-  return (keywordsWithLang && isMarked(hit, keywordsWithLang)) ? (
-    <span className="mb-1 text-sm italic [.dark_&]:text-default-200 text-sm">
+  return keywordsWithLang && isMarked(hit, keywordsWithLang) ? (
+    <span className="mb-1 text-sm text-sm italic [.dark_&]:text-default-200">
       <Highlight attribute={keywordsWithLang} hit={hit} />
     </span>
   ) : null;
@@ -272,7 +278,8 @@ function SearchHitWidget({ hit, locale }: { hit: any; locale: string }) {
   const highlightResult = hit['_highlightResult'];
 
   return (
-    <li className={clsx(
+    <li
+      className={clsx(
         'colors-search-hit relative',
         'before:absolute before:left-0 before:top-0 before:h-full before:w-full',
         'pb-2 pt-2',

@@ -7,7 +7,9 @@ export const toSlug = (str: string) => {
     .replace(/^-+|-+$/g, '');
 };
 
-
-export const slugifyIssue = (label_en: string | null, label_pl: string | null) => {
+export const slugifyIssue = (
+  label_en: string | null,
+  label_pl: string | null,
+) => {
   return toSlug(label_en ?? label_pl ?? 'bug');
 };

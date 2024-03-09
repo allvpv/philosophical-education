@@ -7,16 +7,16 @@ digitizing the journal's resources.
 
 
 ### Overview
-- Contenerization is not used for practical reasons. To prevent privilege
+- Containerization is not used for practical reasons. To prevent privilege
   escalation, I've used `bubblewrap` (a tiny wraper over Linux namespaces),
   `slirp4netns` (user-mode networking) and a bunch of bash scripts.
 
 - Front-end uses Next.js and React. Strapi is an incredibly heavy CMS to manage
-  the articles/issues and static content. Meilisearch is amazing search engine
+  articles/issues and static content. Meilisearch is an amazing search engine
   compatible with Algolia front-end libraries.
 
   ⚠️  I'm not a React/Next.js guy, so the code is... quite ugly in some places.
-  But it works very well and renders pretty website. (You have been warned,
+  But it works very well and renders a pretty website. (You have been warned,
   tho).
 
 - This program is free software: you can redistribute it and/or modify it under

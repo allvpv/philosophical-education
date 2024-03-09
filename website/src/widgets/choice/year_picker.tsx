@@ -162,8 +162,8 @@ export function YearPicker(params: {
       <div
         className="pointer-events-none absolute bottom-0 left-0
                    top-0 z-40 flex w-full flex-col items-stretch justify-between">
-        <div className="colors-year-picker-disappear-gradient h-[30px] sm:h-[60px] w-full bg-gradient-to-t" />
-        <div className="colors-year-picker-disappear-gradient h-[40px] sm:h-[60px] w-full bg-gradient-to-b" />
+        <div className="colors-year-picker-disappear-gradient h-[30px] w-full bg-gradient-to-t sm:h-[60px]" />
+        <div className="colors-year-picker-disappear-gradient h-[40px] w-full bg-gradient-to-b sm:h-[60px]" />
       </div>
       <div
         className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 flex w-full flex-col

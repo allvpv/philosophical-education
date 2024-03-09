@@ -24,8 +24,7 @@ export default function Hamburger({
       <Listbox.Button className="hover:colors-amplify-filter fix-safari block transition-[filter]">
         {children}
       </Listbox.Button>
-      <Listbox.Options
-        className="colors-dialog colors-border absolute translate-y-1 rounded-lg border-4 py-3">
+      <Listbox.Options className="colors-dialog colors-border absolute translate-y-1 rounded-lg border-4 py-3">
         <ul className="font-sans text-base font-medium">
           {navItems.map((item, i) => {
             const isActive = pathname.startsWith(item.matchPrefix);

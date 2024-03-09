@@ -1,7 +1,17 @@
 'use client';
 
-import { useState, useLayoutEffect, useMemo, useRef, useEffect, Fragment, Suspense, memo, lazy } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import {
+  useState,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useEffect,
+  Fragment,
+  Suspense,
+  memo,
+  lazy,
+} from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 import { Popover, Listbox, Switch, Transition } from '@headlessui/react';
 
@@ -17,7 +27,6 @@ import getMasonry from '@/widgets/masonry';
 
 const SearchBloat = lazy(() => import('@/widgets/searchbloat'));
 const RangeButtonMemo = memo(RangeButton);
-
 
 const CheckIcon = () => (
   <svg
@@ -51,9 +60,16 @@ const ChevronLeft = ({ className }: { className: string }) => (
 );
 
 const ChevronUpDown = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-       className="hidden xs:block w-4 h-4 mt-[1px] ml-1 mr-[-4px] rotate-180">
-    <path fillRule="evenodd" d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z" clipRule="evenodd" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    className="ml-1 mr-[-4px] mt-[1px] hidden h-4 w-4 rotate-180 xs:block">
+    <path
+      fillRule="evenodd"
+      d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
@@ -95,7 +111,7 @@ function Adjustments({
   };
 
   return (
-    <div className="mx-auto flex max-w-xl items-center gap-3 overflow-visible relative px-4">
+    <div className="relative mx-auto flex max-w-xl items-center gap-3 overflow-visible px-4">
       <ButtonLanguage
         localePrimary={locale}
         localeSecondary={locale === 'pl' ? 'en' : 'pl'}
@@ -107,7 +123,7 @@ function Adjustments({
       />
       <Listbox
         as="div"
-        className="block overflow-visible relative"
+        className="relative block overflow-visible"
         value={selectedFields}
         onChange={setSelectedFieldsNoEmpty}
         multiple>
@@ -150,9 +166,9 @@ function Adjustments({
           leaveTo="opacity-0">
           <Listbox.Options
             className="min-w-50 absolute mt-1 overflow-auto rounded-xl
-                       text-base focus:outline-none sm:text-sm
-                       [.dark_&]:bg-default-700 [.light_&]:bg-default-150
-                       mono:border-black mono:bg-white mono:border-4 py-2">
+                       py-2 text-base focus:outline-none
+                       mono:border-4 mono:border-black
+                       mono:bg-white sm:text-sm [.dark_&]:bg-default-700 [.light_&]:bg-default-150">
             {allFields.map((field, i) => (
               <Listbox.Option
                 key={i}
@@ -160,21 +176,22 @@ function Adjustments({
                   `relative cursor-pointer select-none py-2 pl-12 pr-7
                   transition-colors duration-100 [.dark_&]:text-default-50 ${
                     active
-                      ? '[.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7] mono:underline'
-                      : '[.light_&]:text-default-900 [.light_&]:text-amber-900'
+                      ? 'mono:underline [.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7]'
+                      : '[.light_&]:text-amber-900 [.light_&]:text-default-900'
                   }`
                 }
                 value={i}>
                 {({ selected }) => (
                   <>
-                    <span className={`block truncate ${selected ? 'font-medium mono:font-semibold' : 'font-normal'}`}>
+                    <span
+                      className={`block truncate ${selected ? 'font-medium mono:font-semibold' : 'font-normal'}`}>
                       {field}
                     </span>
                     {selected ? (
                       <span
                         className="absolute inset-y-0 left-2 flex items-center pl-3
-                                   [.dark_&]:text-amber-400 [.light_&]:text-amber-600
-                                   mono:underline">
+                                   mono:underline [.dark_&]:text-amber-400
+                                   [.light_&]:text-amber-600">
                         <CheckIcon aria-hidden="true" />
                       </span>
                     ) : null}
@@ -189,17 +206,17 @@ function Adjustments({
         value={sortBy}
         onChange={setSortByUnclickable}
         as="div"
-        className="block overflow-visible relative">
+        className="relative block overflow-visible">
         <Listbox.Button
           className="data-[dosort=no]:colors-search-include
                      data-[dosort=yes]:colors-search-include-selected
                      group flex h-[28px] max-w-full cursor-pointer items-center justify-center gap-1
                      rounded-lg px-4 text-left font-medium transition-[background-color]
                      focus:outline-none focus-visible:border-indigo-500
-                     focus-visible:ring-offset-orange-300 sm:text-sm focus-visible:ring-2
-                     focus-visible:ring-white/75 focus-visible:ring-offset-2"
+                     focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2
+                     focus-visible:ring-offset-orange-300 sm:text-sm"
           data-dosort={sortBy !== null ? 'yes' : 'no'}>
-          <span className="transition-all group-hover:mx-1 ui-open:mx-1 flex items-center">
+          <span className="flex items-center transition-all group-hover:mx-1 ui-open:mx-1">
             {translations['sort']} <ChevronUpDown />
           </span>
         </Listbox.Button>
@@ -209,20 +226,20 @@ function Adjustments({
           leaveFrom="opacity-100"
           leaveTo="opacity-0">
           <Listbox.Options
-            className="min-w-50 absolute right-0 xs:right-auto mt-1 overflow-auto rounded-xl
-                       py-2 text-base focus:outline-none sm:text-sm mt-1
-                       [.dark_&]:bg-default-700 [.light_&]:bg-default-150
-                       mono:border-black mono:bg-white mono:border-4">
+            className="min-w-50 absolute right-0 mt-1 mt-1 overflow-auto rounded-xl
+                       py-2 text-base focus:outline-none mono:border-4 mono:border-black
+                       mono:bg-white sm:text-sm
+                       xs:right-auto [.dark_&]:bg-default-700 [.light_&]:bg-default-150">
             {allSort.map((field, i) => (
               <Listbox.Option
                 key={i}
                 className={({ active }) =>
                   `relative cursor-pointer select-none py-2 pl-6 pr-6 transition-colors
                    duration-100 [.dark_&]:text-default-50 ${
-                    active
-                      ? '[.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7] [.light_&]:text-amber-900 mono:underline'
-                      : '[.light_&]:text-default-900'
-                  }`
+                     active
+                       ? 'mono:underline [.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7] [.light_&]:text-amber-900'
+                       : '[.light_&]:text-default-900'
+                   }`
                 }
                 value={i}>
                 {({ selected }) => (
@@ -395,7 +412,11 @@ function RangeButton(params: any) {
   );
 }
 
-function packSelectedFields(selectedFields: any, options : number | null, allFields: any) {
+function packSelectedFields(
+  selectedFields: any,
+  options: number | null,
+  allFields: any,
+) {
   const shift = allFields.length;
 
   // Doesn't matter; sortBy is default here.
@@ -404,32 +425,38 @@ function packSelectedFields(selectedFields: any, options : number | null, allFie
   }
 
   if (!(options >> shift) && selectedFields.length == allFields.length) {
-      return null;
+    return null;
   } else {
-      const selectedFieldsSorted = selectedFields.sort();
-      const hash = selectedFieldsSorted.map((n: number) => 2**n).reduce((s: number, n: number) => s + n);
-      options &= (0xFFFFFFFF << shift);
-      options |= hash;
-      return options
+    const selectedFieldsSorted = selectedFields.sort();
+    const hash = selectedFieldsSorted
+      .map((n: number) => 2 ** n)
+      .reduce((s: number, n: number) => s + n);
+    options &= 0xffffffff << shift;
+    options |= hash;
+    return options;
   }
 }
 
-function packSortBy(sortBy: number | null, options : number | null, allFields: any) {
+function packSortBy(
+  sortBy: number | null,
+  options: number | null,
+  allFields: any,
+) {
   const shift = allFields.length;
 
   if (options === null) {
     options = (1 << shift) - 1; // Default options
   }
 
-  sortBy = (sortBy === null) ? 0 : (sortBy + 1);
+  sortBy = sortBy === null ? 0 : sortBy + 1;
   const selectedFieldsMask = (1 << shift) - 1;
 
   if (!sortBy && (options & selectedFieldsMask) == 15) {
-      return null;
+    return null;
   } else {
-      options &= ~(0xFFFFFFFF << shift);
-      options |= (sortBy << shift);
-      return options;
+    options &= ~(0xffffffff << shift);
+    options |= sortBy << shift;
+    return options;
   }
 }
 
@@ -443,7 +470,7 @@ function unpackOptions(options: number | null, allFields: any, allSortBy: any) {
   //
   // Parse selected
   //
-  let selected = options & ~(0xFFFFFFFF << shift);
+  let selected = options & ~(0xffffffff << shift);
   let selectedFields = [];
 
   for (let i = 0; selected; ++i) {
@@ -488,9 +515,7 @@ const getURLOptions = (searchParams: any) => {
 const getURLLocale = (searchParams: any, globalLocale: string) => {
   const localeUrl = searchParams.get('searchLocale');
 
-  return localeUrl === "pl" ? "pl" :
-         localeUrl === "en" ? "en" :
-         globalLocale;
+  return localeUrl === 'pl' ? 'pl' : localeUrl === 'en' ? 'en' : globalLocale;
 };
 
 const setURLParam = (params: any, key: string, value: string | undefined) => {
@@ -505,9 +530,8 @@ const setURLParam = (params: any, key: string, value: string | undefined) => {
 // (tricky, I know...)
 function SearchParamsHandler(params: any) {
   // We need debounce, because updating URL is costly and causes throttling.
-  const [[ queryDebounced, optionsDebounced, currentLocaleDebounced ]] = useDebounce(
-    [ params.query, params.options, params.currentLocale ], 400
-  );
+  const [[queryDebounced, optionsDebounced, currentLocaleDebounced]] =
+    useDebounce([params.query, params.options, params.currentLocale], 400);
   const router = useRouter();
   const searchParamsConst = useSearchParams();
   const pathname = usePathname();
@@ -529,41 +553,47 @@ function SearchParamsHandler(params: any) {
 
     newQuery !== params.query && params.setQuery(newQuery);
     newOptions !== params.options && params.setOptions(newOptions);
-    newSearchLocale !== params.currentLocale && params.setCurrentLocale(newSearchLocale);
+    newSearchLocale !== params.currentLocale &&
+      params.setCurrentLocale(newSearchLocale);
   };
 
   const updateSearchParamsFromState = () => {
-      const oldUrl = window.location.search;
+    const oldUrl = window.location.search;
 
-      setURLParam(searchParams, 'query', params.query);
-      setURLParam(searchParams, 'options', params.options?.toString());
-      setURLParam(searchParams, 'searchLocale',
-        params.currentLocale === params.locale ? undefined : params.currentLocale
-      );
+    setURLParam(searchParams, 'query', params.query);
+    setURLParam(searchParams, 'options', params.options?.toString());
+    setURLParam(
+      searchParams,
+      'searchLocale',
+      params.currentLocale === params.locale ? undefined : params.currentLocale,
+    );
 
-      // Prevent scrolling on page refresh
-      if (params.query) {
-        searchParams.delete('highlight');
+    // Prevent scrolling on page refresh
+    if (params.query) {
+      searchParams.delete('highlight');
+    }
+
+    const paramsStrFull = `?${searchParams.toString()}`;
+    const newUrl =
+      paramsStrFull.length === 1 // sole question mark
+        ? ''
+        : `${paramsStrFull}${window.location.hash}`;
+
+    if (oldUrl !== newUrl) {
+      if (!newUrl) {
+        // New URL is empty (no search params).
+        // Important!! Otherwise router ignores;
+        router.replace(`${window.location.pathname}${window.location.hash}`, {
+          scroll: false,
+        });
+      } else {
+        router.replace(newUrl, { scroll: false });
       }
 
-      const paramsStrFull = `?${searchParams.toString()}`;
-      const newUrl =
-        paramsStrFull.length === 1 // sole question mark
-          ? ''
-          : `${paramsStrFull}${window.location.hash}`;
+      return true;
+    }
 
-      if (oldUrl !== newUrl) {
-        if (!newUrl) { // New URL is empty (no search params).
-          // Important!! Otherwise router ignores;
-          router.replace(`${window.location.pathname}${window.location.hash}`, { scroll: false });
-        } else {
-          router.replace(newUrl, { scroll: false });
-        }
-
-        return true;
-      }
-
-      return false;
+    return false;
   };
 
   let searchParamsChanged = useRef(false);
@@ -592,14 +622,13 @@ function SearchParamsHandler(params: any) {
       ignoreSearchParamsChange.current = false;
 
       updateStateFromSearchParams();
-
     } else if (searchParamsChanged.current) {
       searchParamsChanged.current = false;
 
       if (!ignoreSearchParamsChange.current) {
         updateStateFromSearchParams();
       } else {
-        ignoreSearchParamsChange.current = false
+        ignoreSearchParamsChange.current = false;
       }
     } else if (timeForDebounce.current) {
       timeForDebounce.current = false;
@@ -607,7 +636,8 @@ function SearchParamsHandler(params: any) {
 
       if (updated) {
         ignoreSearchParamsChange.current = true;
-      } else { // No change in params
+      } else {
+        // No change in params
         ignoreSearchParamsChange.current = false;
       }
     }
@@ -626,9 +656,11 @@ function SearchMagic({
 }: any) {
   const searchParams = useSearchParams();
 
-  const [ query, setQuery ] = useState(() => getURLQuery(searchParams));
-  const [ options, setOptions ] = useState(() => getURLOptions(searchParams));
-  const [ currentLocale, setCurrentLocale ] = useState(() => getURLLocale(searchParams, locale));
+  const [query, setQuery] = useState(() => getURLQuery(searchParams));
+  const [options, setOptions] = useState(() => getURLOptions(searchParams));
+  const [currentLocale, setCurrentLocale] = useState(() =>
+    getURLLocale(searchParams, locale),
+  );
 
   const inputRef = useRef<HTMLInputElement>(null);
   const isQueryEmpty = !query;
@@ -642,7 +674,10 @@ function SearchMagic({
     translations['searchRemaining'],
   ];
 
-  const allSort = [translations["dateAscending"], translations["dateDescending"]];
+  const allSort = [
+    translations['dateAscending'],
+    translations['dateDescending'],
+  ];
 
   const { sortBy, selectedFields } = unpackOptions(options, allFields, allSort);
 
@@ -652,10 +687,10 @@ function SearchMagic({
       const packed = packSelectedFields(selectedFields, options, allFields);
       setOptions(packed);
     }
-  }
+  };
 
   const setSortBy = (sortBy: number | null) => {
-    const packed =  packSortBy(sortBy, options, allFields);
+    const packed = packSortBy(sortBy, options, allFields);
     setOptions(packed);
   };
 
@@ -675,12 +710,12 @@ function SearchMagic({
     }
 
     setQuery(term);
-  }
+  };
 
   const reset = (term: string) => {
-    setQuery("");
-    setOptions(null);  // Default options
-  }
+    setQuery('');
+    setOptions(null); // Default options
+  };
 
   return (
     <Fragment>
@@ -693,7 +728,8 @@ function SearchMagic({
         inputRef={inputRef}
         setOptions={setOptions}
         setQuery={setQuery}
-        setCurrentLocale={setCurrentLocale} />
+        setCurrentLocale={setCurrentLocale}
+      />
       <div
         className={clsx(
           'relative order-1 mx-auto ml-1 mt-[22px] flex w-full items-start gap-3 sm:mt-[44px]',
@@ -707,7 +743,7 @@ function SearchMagic({
               'h-[calc(100dvh_-_156px)] min-h-[300px] sm:h-[calc(100dvh_-_192px)]',
             !isQueryEmpty &&
               'maxwsm:fixed maxwsm:bottom-0 maxwsm:top-0 maxwsm:h-full ' +
-              'maxwsm:left-0 maxwsm:right-0 maxwsm:z-[999]',
+                'maxwsm:left-0 maxwsm:right-0 maxwsm:z-[999]',
           )}>
           <div className="flex h-10 min-h-10 items-center">
             <div
@@ -738,13 +774,13 @@ function SearchMagic({
               />
             </div>
           </div>
-          <div className="colors-search-popup block h-full w-full data-[empty=yes]:hidden
-                          overflow-scroll overscroll-contain rounded-b-2xl
-                          border-x border-b maxwsm:data-[empty=no]:rounded-none
+          <div
+            className="colors-search-popup block h-full w-full overflow-scroll
+                          overscroll-contain rounded-b-2xl border-x
+                          border-b data-[empty=yes]:hidden maxwsm:data-[empty=no]:rounded-none
                           maxwsm:data-[empty=no]:border-none"
-               data-empty={isQueryEmpty ? 'yes' : 'no'}>
-            <div
-              className="colors-search-helper sticky top-0 z-50 w-full py-2 maxwsm:z-[1000]">
+            data-empty={isQueryEmpty ? 'yes' : 'no'}>
+            <div className="colors-search-helper sticky top-0 z-50 w-full py-2 maxwsm:z-[1000]">
               <Adjustments
                 locale={locale}
                 currentLocale={currentLocale}
