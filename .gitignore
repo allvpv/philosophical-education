@@ -9,10 +9,14 @@ next-env.d.ts
 node_modules
 package-lock.json
 
+# Runtime files
 /nginx/website_static
 /nginx/strapi_public
 /databases
+
+# Generated from template
 /systemd/*.service
+/nginx/edufil.allvpv.org.nginx.conf
 
 # Website
 /website/builds
