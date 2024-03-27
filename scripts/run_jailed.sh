@@ -80,6 +80,8 @@ then
 
   SETENVS=$(sed 's/^/export /' < "${REPO}/envs/website.env.private")
 
+  mkdir -p "${BUILD}/standalone/builds/current/cache"
+
   JAIL_WEBSITE=(
     "${JAIL_COMMON[@]}"
     --bind "${BUILD}" "/opt/website"
