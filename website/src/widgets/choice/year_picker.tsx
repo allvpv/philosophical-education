@@ -3,53 +3,72 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { useRef, useEffect, useCallback } from 'react';
-import { scrollHCenterElement } from '@/helpers/scroll_centering_element';
 
-export function YearRange(params: {
+function YearRange({
+  yearList,
+  pickedYear,
+  setPickedYear
+}: {
   yearList: number[];
   pickedYear: number;
   setPickedYear: (input: number) => void;
 }) {
-  const { yearList, pickedYear, setPickedYear } = params;
   const pickedIndex = yearList.indexOf(pickedYear);
-
   const containerRef = useRef<HTMLElement>(null);
 
   const paddingHeight = 100;
   const elementHeight = 40;
 
-  const setPickedIndex = useCallback(
-    (index: number) => {
-      const computePickedIndexScrollTop = (index: number, height: number) => {
-        const scrollElementMiddle = index * elementHeight + elementHeight / 2;
-        const scrollMiddle = scrollElementMiddle + paddingHeight;
-        const scrollTop = scrollMiddle - height / 2;
+  const getScrollTopFromPickedIndex = (index: number, height: number) => {
+    const scrollElementMiddle = index * elementHeight + elementHeight / 2;
+    const scrollMiddle = scrollElementMiddle + paddingHeight;
+    const scrollTop = scrollMiddle - height / 2;
 
-        return scrollTop;
-      };
+    return scrollTop;
+  };
+
+  const getPickedIndexFromScrollTop = (scrollTop: number, height: number) => {
+      const scrollMiddle = scrollTop + height / 2;
+      const scrollElementMiddle = scrollMiddle - paddingHeight;
+      return Math.floor(scrollElementMiddle / elementHeight)
+  }
+
+
+  const scrollToPickedIndex = useCallback(
+    (index: number) => {
 
       if (containerRef.current) {
         const { height } = containerRef.current.getBoundingClientRect();
-        const scrollTop = computePickedIndexScrollTop(index, height);
+        const currentScrollTop = containerRef.current.scrollTop;
+        const currentScrollMiddle = currentScrollTop + height / 2;
+        const currentScrollElementMiddle = currentScrollMiddle - paddingHeight;
+        const currentIndex = (currentScrollElementMiddle - elementHeight / 2) / elementHeight;
 
+        if (currentIndex != index) {
+        const scrollTop = getScrollTopFromPickedIndex(index, height);
         containerRef.current.scrollTop = scrollTop;
+        }
       }
     },
     [containerRef],
   );
 
   useEffect(() => {
-    setPickedIndex(pickedIndex);
-  }, [pickedIndex, setPickedIndex]);
+    if (containerRef.current) {
+      const { height } = containerRef.current.getBoundingClientRect();
+      const index = getPickedIndexFromScrollTop(containerRef.current.scrollTop, height);
+
+      if (index !== pickedIndex) {
+        scrollToPickedIndex(pickedIndex);
+      }
+    }
+  });
 
   // Center the item in sidebar
   const handleScroll = () => {
     if (containerRef.current) {
       const { height } = containerRef.current.getBoundingClientRect();
-
-      const scrollMiddle = containerRef.current.scrollTop + height / 2;
-      const scrollElementMiddle = scrollMiddle - paddingHeight;
-      const index = Math.floor(scrollElementMiddle / elementHeight);
+      const index = getPickedIndexFromScrollTop(containerRef.current.scrollTop, height);
 
       if (index !== pickedIndex) {
         setPickedYear(yearList[index]);
@@ -62,9 +81,9 @@ export function YearRange(params: {
     e.preventDefault();
 
     if (e.key === 'ArrowDown') {
-      setPickedIndex(pickedIndex + 1);
+      scrollToPickedIndex(pickedIndex + 1);
     } else if (e.key === 'ArrowUp') {
-      setPickedIndex(pickedIndex - 1);
+      scrollToPickedIndex(pickedIndex - 1);
     }
   };
 
@@ -77,9 +96,7 @@ export function YearRange(params: {
       onKeyDown={handleKey}
       tabIndex={0}>
       <div className="h-[100px]" key={-1} />
-      {yearList.map((currentYear, index) => {
-        const isPicked = index === pickedIndex;
-
+      {yearList.map(currentYear => {
         return (
           <div
             className={clsx(
@@ -153,8 +170,6 @@ export function YearPicker(params: {
     }
   });
 
-  console.dir(yearList, { depth: null });
-
   return (
     <div
       className="colors-year-picker-default relative flex min-h-[240px] items-center
@@ -179,8 +194,8 @@ export function YearPicker(params: {
       <div className="relative z-20 mr-2">{translations['to']}</div>
       <YearRange
         yearList={yearList}
-        pickedYear={selectedTo}
         setPickedYear={setSelectedTo}
+        pickedYear={selectedTo}
       />
       <div className="relative z-20 w-[90px] whitespace-nowrap ">
         ({editionsCount} {getEditionsCountSuffixInLanguage(editionsCount)})
