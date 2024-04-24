@@ -3,7 +3,7 @@
 # filename globbing. Whole pipeline fails if any command fails.
 set -euf -o pipefail
 
-if [[ "$1" != "strapi" && "$1" != "website" ]]
+if [[ -z "${1:-}" ]] || [[ "$1" != "strapi" && "$1" != "website" ]]
 then
   echo "$0 strapi|website"
   exit 1
