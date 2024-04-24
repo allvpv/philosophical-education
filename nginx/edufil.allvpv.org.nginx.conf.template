@@ -82,6 +82,7 @@ server {
     alias ${REPO}/nginx/old/;
     add_header Cache-Control "max-age=31536000";
   }
+  rewrite ^/nr-(\d\d)(\d\d\d\d)/ /archive/$2-$1 break;
 }
 
 server {
