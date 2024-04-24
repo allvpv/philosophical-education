@@ -74,6 +74,14 @@ server {
   location /meilisearch/ {
     proxy_pass http://127.0.0.1:7700/;
   }
+
+  #
+  # Files from the previous website
+  #
+  location /index_pliki/ {
+    alias ${REPO}/nginx/old/;
+    add_header Cache-Control "max-age=31536000";
+  }
 }
 
 server {
