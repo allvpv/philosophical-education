@@ -88,6 +88,17 @@ server {
 
   rewrite ^/nr-specjalny /pl/archive/2016-special permanent;
   rewrite ^/en/nr-specjalny /en/archive/2016-special permanent;
+
+  rewrite ^/(en/)?(redakcja)                  /$1content/$2 permanent;
+  rewrite ^/(en/)?(recenzenci)                /$1content/$2 permanent;
+  rewrite ^/(en/)?(rada-programowa)           /$1content/$2 permanent;
+  rewrite ^/(en/)?(jak-cytowac-artykuly)      /$1content/$2 permanent;
+  rewrite ^/(en/)?(cele-i-zakres-tematyczny)  /$1content/$2 permanent;
+  rewrite ^/(en/)?(do-autorow)                /$1content/$2 permanent;
+  rewrite ^/(en/)?(publikowanie)              /$1content/$2 permanent;
+  rewrite ^/(en/)?(oswiadczenia)              /$1content/$2 permanent;
+  rewrite ^/(en/)?(procedura-recenzowania)    /$1content/$2 permanent;
+  rewrite ^/(en/)?(kontakt)                   /$1content/$2 permanent;
 }
 
 server {
