@@ -7,7 +7,7 @@ import { useRef, useEffect, useCallback } from 'react';
 function YearRange({
   yearList,
   pickedYear,
-  setPickedYear
+  setPickedYear,
 }: {
   yearList: number[];
   pickedYear: number;
@@ -28,25 +28,24 @@ function YearRange({
   };
 
   const getPickedIndexFromScrollTop = (scrollTop: number, height: number) => {
-      const scrollMiddle = scrollTop + height / 2;
-      const scrollElementMiddle = scrollMiddle - paddingHeight;
-      return Math.floor(scrollElementMiddle / elementHeight)
-  }
-
+    const scrollMiddle = scrollTop + height / 2;
+    const scrollElementMiddle = scrollMiddle - paddingHeight;
+    return Math.floor(scrollElementMiddle / elementHeight);
+  };
 
   const scrollToPickedIndex = useCallback(
     (index: number) => {
-
       if (containerRef.current) {
         const { height } = containerRef.current.getBoundingClientRect();
         const currentScrollTop = containerRef.current.scrollTop;
         const currentScrollMiddle = currentScrollTop + height / 2;
         const currentScrollElementMiddle = currentScrollMiddle - paddingHeight;
-        const currentIndex = (currentScrollElementMiddle - elementHeight / 2) / elementHeight;
+        const currentIndex =
+          (currentScrollElementMiddle - elementHeight / 2) / elementHeight;
 
         if (currentIndex != index) {
-        const scrollTop = getScrollTopFromPickedIndex(index, height);
-        containerRef.current.scrollTop = scrollTop;
+          const scrollTop = getScrollTopFromPickedIndex(index, height);
+          containerRef.current.scrollTop = scrollTop;
         }
       }
     },
@@ -56,7 +55,10 @@ function YearRange({
   useEffect(() => {
     if (containerRef.current) {
       const { height } = containerRef.current.getBoundingClientRect();
-      const index = getPickedIndexFromScrollTop(containerRef.current.scrollTop, height);
+      const index = getPickedIndexFromScrollTop(
+        containerRef.current.scrollTop,
+        height,
+      );
 
       if (index !== pickedIndex) {
         scrollToPickedIndex(pickedIndex);
@@ -68,7 +70,10 @@ function YearRange({
   const handleScroll = () => {
     if (containerRef.current) {
       const { height } = containerRef.current.getBoundingClientRect();
-      const index = getPickedIndexFromScrollTop(containerRef.current.scrollTop, height);
+      const index = getPickedIndexFromScrollTop(
+        containerRef.current.scrollTop,
+        height,
+      );
 
       if (index !== pickedIndex) {
         setPickedYear(yearList[index]);
@@ -96,7 +101,7 @@ function YearRange({
       onKeyDown={handleKey}
       tabIndex={0}>
       <div className="h-[100px]" key={-1} />
-      {yearList.map(currentYear => {
+      {yearList.map((currentYear) => {
         return (
           <div
             className={clsx(

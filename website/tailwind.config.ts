@@ -82,6 +82,14 @@ export default {
             transform: 'translateX(100%)',
           },
         },
+        'enable-pointer-events': {
+          '0%, 99%': {
+            'pointer-events': 'none',
+          },
+          '100%': {
+            'pointer-events': 'auto',
+          },
+        },
       },
       screens: {
         us: '360px',

@@ -70,32 +70,47 @@ export default function IssuesList({
     }
   }, [scrolledListRef, list]);
 
-  const scrollLeft = () => {
+  const farJmpLeft = () => {
     if (scrolledListRef.current) {
       scrolledListRef.current.scrollLeft = 0;
     }
   };
 
-  const scrollRight = () => {
+  const farJmpRight = () => {
     if (scrolledListRef.current) {
       scrolledListRef.current.scrollLeft = scrolledListRef.current.scrollWidth;
+    }
+  };
+
+  const nearJmp = (direction: string) => {
+    if (scrolledListRef.current) {
+      const { left, right } = scrolledListRef.current.getBoundingClientRect();
+      const width = right - left;
+      const step = width / 2;
+
+      scrolledListRef.current.scrollBy({
+        top: 0,
+        left: direction === 'right' ? step : -step,
+        behavior: 'smooth',
+      });
     }
   };
 
   return list.length > 0 ? (
     <div
       className="relative flex h-12 grow items-stretch overflow-visible
-                    transition-[height]">
+                 transition-[height]">
       {leftButtonVisible && (
         <>
           <ScrollButton
             direction="left"
             appendClass="relative z-10 -ml-2 sm:ml-0"
-            onClick={scrollLeft}
+            farJmp={farJmpLeft}
+            nearJmp={() => nearJmp('left')}
           />
           <ScrollGradient
             direction="left"
-            appendClass="mr-auto relative z-[9] -ml-2 sm:ml-0"
+            appendClass="mr-auto relative z-[9]"
           />
         </>
       )}
@@ -129,17 +144,17 @@ export default function IssuesList({
           </React.Fragment>
         </div>
       </div>
-      <div className="h-1 w-5 px-5" />
       {rightButtonVisible && (
         <>
           <ScrollGradient
             direction="right"
-            appendClass="ml-auto relative z-[9] -mr-2 sm:mr-0"
+            appendClass="ml-auto relative z-[9]"
           />
           <ScrollButton
             direction="right"
-            appendClass="relative z-10 -mr-2 sm:mr-0"
-            onClick={scrollRight}
+            appendClass="relative z-10"
+            farJmp={farJmpRight}
+            nearJmp={() => nearJmp('right')}
           />
         </>
       )}
@@ -153,19 +168,38 @@ const ScrollButton = ({
   direction,
   single,
   appendClass = '',
-  onClick,
+  farJmp,
+  nearJmp,
 }: any) => (
   <div
     className={
-      `colors-choice-chevron-bg flex h-full w-10 items-center sm:w-12 ` +
-      `justify-center ${appendClass} overflow-visible`
+      `w-max-content group flex h-full items-center ` +
+      `justify-center ${appendClass} colors-choice-chevron-bg overflow-visible ` +
+      (direction === `left` ? `flex-row-reverse` : ``)
     }>
+    <button
+      className={
+        `hover:colors-choice-chevron-hover h-10 rounded-full sm:h-12 ` +
+        `-mr-2 flex items-center justify-center overflow-visible ` +
+        `transition-[width,opacity] duration-[150ms] ` +
+        `pointer-events-none group-hover:animate-[enable-pointer-events_160ms_forwards] ` +
+        `w-0 opacity-0 group-hover:w-10 group-hover:opacity-100 sm:group-hover:w-12`
+      }
+      onClick={nearJmp}>
+      <span>
+        <Chevron
+          direction={direction}
+          single={true}
+          className="colors-choice-chevron h-5 w-5"
+        />
+      </span>
+    </button>
     <button
       className={
         `hover:colors-choice-chevron-hover h-10 w-10 rounded-full sm:h-12 sm:w-12 ` +
         `flex items-center justify-center overflow-visible`
       }
-      onClick={onClick}>
+      onClick={farJmp}>
       <Chevron
         direction={direction}
         single={single}
