@@ -31,8 +31,6 @@ export default function IssuesList({
   const scrolledListRef = useRef<HTMLElement>(null);
   const activeRef = useRef<HTMLElement>(null);
 
-  const showRightButtonOffset = 20;
-
   // Center the item in the ChoiceBar.
   useEffect(() => {
     if (activeRef.current && scrolledListRef.current) {
@@ -50,8 +48,7 @@ export default function IssuesList({
         if (isScrollable) {
           setLeftButtonVisible(obj.scrollLeft > 0);
           setRightButtonVisible(
-            obj.scrollLeft + obj.offsetWidth + showRightButtonOffset <
-              obj.scrollWidth,
+            obj.scrollLeft + obj.offsetWidth + 1 < obj.scrollWidth,
           );
         } else {
           setLeftButtonVisible(false);
