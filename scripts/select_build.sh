@@ -3,7 +3,7 @@
 # filename globbing. Whole pipeline fails if any command fails.
 set -euf -o pipefail
 
-if [[ "$1" != "strapi" && "$1" != "website" ]]
+if [[ -z "${1:-}" ]] || [[ "$1" != "strapi" && "$1" != "website" ]]
 then
   echo "$0 strapi|website"
   exit 1
@@ -30,6 +30,5 @@ sudo systemctl restart $1.service
 
 if [[ "$1" == "website" && "$CURRENT" != "$CHOICE" ]]; then
   echo "Purging nginx cache"
-  sudo rm -fr /var/cache/nginx # TODO: Less brutal purge
-  sudo systemctl restart nginx.service
+  sudo find /var/cache/nginx -type f -delete
 fi
