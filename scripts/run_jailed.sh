@@ -64,6 +64,7 @@ JAIL_COMMON=(
   --setenv USER "prisoner"
   --setenv HOME "/opt"
   --bind "${REPO}/scripts/resolv.slirp.conf" "/etc/resolv.conf"
+  --bind "${REPO}/scripts/hosts.slirp" "/etc/hosts"
   --die-with-parent
   --as-pid-1
   --new-session
