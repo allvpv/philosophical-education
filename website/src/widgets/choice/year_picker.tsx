@@ -83,11 +83,11 @@ function YearRange({
 
   // Intercept KeyUp and KeyDown
   const handleKey = (e: any) => {
-    e.preventDefault();
-
     if (e.key === 'ArrowDown') {
+      e.preventDefault();
       scrollToPickedIndex(pickedIndex + 1);
     } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
       scrollToPickedIndex(pickedIndex - 1);
     }
   };
