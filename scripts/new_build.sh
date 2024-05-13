@@ -18,8 +18,11 @@ then
   npm run build
 else
   cd "${REPO}"/strapi
-  env $(cat "${REPO}/envs/strapi.env" "${REPO}/envs/strapi.env.private" | xargs) \
-    npm run strapi build
+  set -o allexport
+  source "${REPO}/envs/strapi.env"
+  source "${REPO}/envs/strapi.env.private"
+  npm run strapi build
+  set +o allexport
 fi
 
 CURRENT=$(date +"%Y-%m-%d__%H-%M-%S__%4N")
