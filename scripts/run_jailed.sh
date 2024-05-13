@@ -79,13 +79,12 @@ then
   [[ -h "${REPO}/nginx/website_static" ]] && unlink "${REPO}/nginx/website_static"
   ln -s "$(realpath "${BUILD}/static")" "${REPO}/nginx/website_static"
 
-  SETENVS=$(sed 's/^/export /' < "${REPO}/envs/website.env.private")
-
   mkdir -p "${BUILD}/standalone/builds/current/cache"
 
   JAIL_WEBSITE=(
     "${JAIL_COMMON[@]}"
     --bind "${BUILD}" "/opt/website"
+    --ro-bind "${REPO}/envs/website.env.private" "/opt/website/website.env.private"
     --bind "${BUILD}/standalone/builds/current/cache" /opt/website/standalone/builds/current/cache
     --bind "${BUILD}/standalone/builds/current/server/app"
            /opt/website/standalone/builds/current/server/app
@@ -95,7 +94,11 @@ then
 
   # Set up the jail for the website server. Wait on FIFO.
   bwrap "${JAIL_WEBSITE[@]}" --json-status-fd 3 -- /usr/bin/bash -c \
-      "${SETENVS}; read < /tmp/fifo_container; /usr/bin/node /opt/website/standalone/server.js" \
+      "set -o allexport;                        \
+       source /opt/website/website.env.private; \
+       set +o allexport;                        \
+       read < /tmp/fifo_container;              \
+       /usr/bin/node /opt/website/standalone/server.js" \
     3>${FIFO}_bwrap &
 
   GUEST_PORT=3000
@@ -105,16 +108,14 @@ else
   SELECTED=$(<"${REPO}"/strapi/builds/selected)
   BUILD=$(realpath "${REPO}"/strapi/builds/"${SELECTED}")
 
-  ENV_FILES=("${REPO}/envs/strapi.env"
-             "${REPO}/envs/strapi.env.private"
-             "${REPO}/envs/masterkey.env.private")
-  ENVS=$(cat "${ENV_FILES[@]}")
-  SETENVS=$(sed 's/^/export /' <<< "${ENVS}")
-
   JAIL_STRAPI=(
     "${JAIL_COMMON[@]}"
     --dir /run
-    --ro-bind "${BUILD}" "/opt/strapi"
+    --bind "${BUILD}" "/opt/strapi"
+    --ro-bind "${REPO}/envs/strapi.env" "/opt/strapi/strapi.env"
+    --ro-bind "${REPO}/envs/strapi.env.private" "/opt/strapi/strapi.env.private"
+    --ro-bind "${REPO}/envs/masterkey.env.private" "/opt/strapi/masterkey.env.private"
+    --remount-ro /opt/strapi
     --bind "${REPO}/databases/strapi_mod.db" /run/db
     --bind "${REPO}/nginx/strapi_public" /srv
     --chdir /opt/strapi
@@ -122,7 +123,13 @@ else
 
   # Set up the jail for the Strapi server. Wait on FIFO.
   bwrap "${JAIL_STRAPI[@]}" --json-status-fd 3 -- /usr/bin/bash -c \
-      "${SETENVS}; read < /tmp/fifo_container; /usr/bin/npm run start" \
+      "set -o allexport;                           \
+       source /opt/strapi/strapi.env;              \
+       source /opt/strapi/strapi.env.private;      \
+       source /opt/strapi/masterkey.env.private;   \
+       set -o allexport;                           \
+       read < /tmp/fifo_container;                 \
+       /usr/bin/npm run start" \
     3>${FIFO}_bwrap &
 
   GUEST_PORT=1337
