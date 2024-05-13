@@ -3,6 +3,23 @@ export default ({ env }) => ({
     enabled: true,
     resolve: './src/plugins/ckeditor'
   },
+  email: {
+    config: {
+      provider: 'nodemailer',
+      providerOptions: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        auth: {
+          user: 'ef.strapi@gmail.com',
+          pass: env('SMTP_PASSWORD'),
+        },
+      },
+      settings: {
+        defaultFrom: 'ef.strapi@gmail.com',
+        defaultReplyTo: 'ef.strapi@gmail.com',
+      },
+    },
+  },
   'meilisearch': {
     config: {
       host: env('MEILI_LOCAL_URL', "http://localhost:7700"),
