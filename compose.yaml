@@ -1,0 +1,83 @@
+services:
+  nginx:
+    restart: always
+    image: nginx:1-alpine
+    ports:
+      - 8089:8089
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/website_public:/website_public
+      - ./nginx/website_static:/website_static
+      - ./nginx/strapi_public:/strapi_public
+      - ./nginx/old/index_pliki:/index_pliki
+    depends_on:
+      - strapi
+      - website
+      - meilisearch
+  strapi:
+    build:
+      context: ./strapi
+      args:
+        - DATABASE_FILENAME="/run/db"
+        - DATABASE_CLIENT=sqlite
+        - NODE_ENV=production
+        - HOST=0.0.0.0
+        - PORT=1337
+        - PUBLIC=/srv
+    command: npm run start
+    env_file:
+      - ./envs/strapi.env.private
+      - ./envs/strapi.env
+      - ./envs/masterkey.env.private
+    environment:
+        - DATABASE_FILENAME="/run/db"
+        - DATABASE_CLIENT=sqlite
+        - NODE_ENV=production
+        - HOST=0.0.0.0
+        - PORT=1337
+        - PUBLIC=/srv
+    expose:
+      - 1337
+    ports:
+      - 1337:1337
+    volumes:
+      - type: bind
+        source: ./databases/strapi_mod.db
+        target: /run/db
+      - type: bind
+        source: ./nginx/strapi_public
+        target: /srv
+    healthcheck:
+      test: ["CMD-SHELL", "curl localhost:1337 | grep -i 'The server is running successfully'"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    depends_on:
+      - meilisearch
+  website:
+    build:
+      context: ./website
+    # `npm run build` must be done when Strapi is already up and running
+    command: >
+      sh -c "npm run build &&
+             /usr/bin/node /opt/website/builds/current/standalone/server.js"
+    env_file:
+      - path: ./envs/website.env
+        required: true
+      - path: ./envs/website.env.private
+        required: true
+    expose:
+      - 3000
+    depends_on:
+      strapi:
+        condition: service_healthy
+  meilisearch:
+    container_name: meilisearch
+    image: getmeili/meilisearch:v1.9
+    env_file:
+      - ./envs/masterkey.env.private
+    expose:
+      - 7770
+    volumes:
+      - ./meilisearch/data.ms:/data.ms
+    restart: unless-stopped
