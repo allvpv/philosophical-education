@@ -68,7 +68,7 @@ digitizing the journal's resources.
     ```
 
 ### Building and starting the application
-Expose port 80 and start the application with the following command:
+Expose port 8080 and start the application with the following command:
 
 ```
 docker-compose up --build
