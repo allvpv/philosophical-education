@@ -40,6 +40,10 @@ services:
       interval: 5s
       timeout: 5s
       retries: 30
+    ulimits:
+      nofile:
+        soft: 10000
+        hard: 15000
     depends_on:
       - meilisearch
   website:
