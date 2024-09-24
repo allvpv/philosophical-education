@@ -65,6 +65,7 @@ digitizing the journal's resources.
   - Database.
     ```
     cp ~/backup/strapi_mod.db ./databases/
+    mkdir -p ./meilisearch/data.ms
     ```
 
 ### Building and starting the application
