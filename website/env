@@ -1,0 +1,4 @@
+export STRAPI_URL_INTERNAL=http://strapi
+export PORT=80
+export NEXT_PUBLIC_STRAPI_URL=${WEBSITE_MAIN_URL}/strapi
+export NEXT_PUBLIC_MEILISEARCH_URL=${WEBSITE_MAIN_URL}/meilisearch

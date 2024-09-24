@@ -1,0 +1,79 @@
+services:
+  nginx:
+    restart: always
+    image: nginx:1-alpine
+    expose:
+      - 80
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/website_public:/website_public
+      - static-website-volume:/website_static
+      - ./nginx/strapi_public:/strapi_public
+      - ./nginx/old/index_pliki:/index_pliki
+    depends_on:
+      - strapi
+      - website
+      - meilisearch
+  strapi:
+    build:
+      args:
+        - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+      context: ./strapi
+    environment:
+      - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+    env_file:
+      - ./masterkey.env.private
+    command: npm run start
+    expose:
+      - 80
+    volumes:
+      - type: bind
+        source: ./databases/strapi_mod.db
+        target: /run/db
+      - type: bind
+        source: ./nginx/strapi_public
+        target: /srv
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://strapi/ | grep -i 'The server is running successfully'"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    depends_on:
+      - meilisearch
+  website:
+    build:
+      context: ./website
+    environment:
+      - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+    # `npm run build` must be done when Strapi is already up and running
+    command: >
+      sh -c "npm run build &&
+             mv /opt/website/builds/current/static/* /opt/website/static/ &&
+             rmdir /opt/website/builds/current/static &&
+             ln -s /opt/website/static /opt/website/builds/current/static &&
+             node /opt/website/builds/current/standalone/server.js"
+    # ^^^ Hack to cicumvent bug in Next.js: Do NOT mount /opt/website/builds/current/static
+    #     directly
+    expose:
+      - 80
+    volumes:
+      - static-website-volume:/opt/website/static
+    depends_on:
+      strapi:
+        condition: service_healthy
+  meilisearch:
+    container_name: meilisearch
+    image: getmeili/meilisearch:v1.9
+    environment:
+      - MEILI_HTTP_ADDR=localhost:80
+    env_file:
+      - ./masterkey.env.private
+    expose:
+      - 80
+    volumes:
+      - ./meilisearch/data.ms:/data.ms
+    restart: unless-stopped
+volumes:
+  static-website-volume:

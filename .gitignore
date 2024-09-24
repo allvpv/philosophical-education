@@ -15,15 +15,13 @@ package-lock.json
 /databases
 
 # Generated from template
-/systemd/*.service
 /nginx/edufil.allvpv.org.nginx.conf
 
 # Website
 /website/builds
 /apache/_next
-/meilisearch
+/meilisearch/data.ms
 /website/out/
-/envs/*.private
 
 # Strapi
 /strapi/builds
@@ -31,3 +29,6 @@ package-lock.json
 /strapi/config/.server.ts.swp
 /strapi/dist
 /strapi/.strapi-updater.json
+
+# Secrets
+*.private

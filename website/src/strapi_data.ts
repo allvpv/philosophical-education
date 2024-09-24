@@ -137,6 +137,14 @@ async function getFromStrapi<T>(query: string): Promise<T> {
     Authorization: 'Bearer ' + STRAPI_KEY,
   };
 
+  if (!STRAPI_URL) {
+    throw new Error("STRAPI_URL_INTERNAL or NEXT_PUBLIC_STRAPI_URL has to be set");
+  }
+
+  if (!STRAPI_KEY) {
+    throw new Error("STRAPI_SECRET_KEY has to be set");
+  }
+
   const url = `${STRAPI_URL}/api/${query}`;
 
   return await fetch(url, {

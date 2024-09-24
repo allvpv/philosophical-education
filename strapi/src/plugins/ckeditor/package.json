@@ -64,7 +64,7 @@
     "ckeditor5": "^40.1.0"
   },
   "peerDependencies": {
-    "@strapi/strapi": "4.12.1"
+    "@strapi/strapi": "4.25.11"
   },
   "engines": {
     "node": ">=14.19.1 <=20.x.x",
