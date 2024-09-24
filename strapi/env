@@ -1,0 +1,8 @@
+export HOST=0.0.0.0
+export PORT=80
+export WEBSITE=http://${WEBSITE_MAIN}/strapi
+export DATABASE_CLIENT=sqlite
+export DATABASE_FILENAME="/run/db"
+export PUBLIC=/srv
+export NODE_ENV=production
+export MEILI_LOCAL_URL="http://meilisearch"

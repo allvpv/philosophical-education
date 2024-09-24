@@ -1,7 +1,7 @@
 export default ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 1337),
-  url: env('WEBSITE', 'http://127.0.0.1:1337'),
+  host: env('HOST', undefined),
+  port: env.int('PORT', undefined),
+  url: env('WEBSITE', undefined),
   dirs: {
     public: env('PUBLIC', './public'),
   },

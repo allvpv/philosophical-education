@@ -22,7 +22,7 @@ export default ({ env }) => ({
   },
   'meilisearch': {
     config: {
-      host: env('MEILI_LOCAL_URL', "http://localhost:7700"),
+      host: env('MEILI_LOCAL_URL', undefined),
       apiKey: env('MEILI_MASTER_KEY', undefined),
       article: {
         settings: {

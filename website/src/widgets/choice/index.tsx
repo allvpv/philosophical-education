@@ -536,7 +536,7 @@ function SearchParamsHandler(params: any) {
   const searchParamsConst = useSearchParams();
   const pathname = usePathname();
 
-  let searchParams = new URLSearchParams(searchParamsConst);
+  let searchParams = new URLSearchParams(searchParamsConst.toString());
 
   const updateStateFromSearchParams = () => {
     const newQuery = getURLQuery(searchParams);

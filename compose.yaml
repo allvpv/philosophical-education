@@ -2,8 +2,10 @@ services:
   nginx:
     restart: always
     image: nginx:1-alpine
+    expose:
+      - 80
     ports:
-      - 8089:8089
+      - 80:80
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/website_public:/website_public
@@ -16,30 +18,16 @@ services:
       - meilisearch
   strapi:
     build:
-      context: ./strapi
       args:
-        - DATABASE_FILENAME="/run/db"
-        - DATABASE_CLIENT=sqlite
-        - NODE_ENV=production
-        - HOST=0.0.0.0
-        - PORT=1337
-        - PUBLIC=/srv
-    command: npm run start
-    env_file:
-      - ./envs/strapi.env.private
-      - ./envs/strapi.env
-      - ./envs/masterkey.env.private
+        - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+      context: ./strapi
     environment:
-        - DATABASE_FILENAME="/run/db"
-        - DATABASE_CLIENT=sqlite
-        - NODE_ENV=production
-        - HOST=0.0.0.0
-        - PORT=1337
-        - PUBLIC=/srv
+      - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+    env_file:
+      - ./masterkey.env.private
+    command: npm run start
     expose:
-      - 1337
-    ports:
-      - 1337:1337
+      - 80
     volumes:
       - type: bind
         source: ./databases/strapi_mod.db
@@ -48,7 +36,7 @@ services:
         source: ./nginx/strapi_public
         target: /srv
     healthcheck:
-      test: ["CMD-SHELL", "curl localhost:1337 | grep -i 'The server is running successfully'"]
+      test: ["CMD-SHELL", "curl http://strapi/ | grep -i 'The server is running successfully'"]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -57,27 +45,26 @@ services:
   website:
     build:
       context: ./website
+    environment:
+      - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
     # `npm run build` must be done when Strapi is already up and running
     command: >
       sh -c "npm run build &&
-             /usr/bin/node /opt/website/builds/current/standalone/server.js"
-    env_file:
-      - path: ./envs/website.env
-        required: true
-      - path: ./envs/website.env.private
-        required: true
+             node /opt/website/builds/current/standalone/server.js"
     expose:
-      - 3000
+      - 80
     depends_on:
       strapi:
         condition: service_healthy
   meilisearch:
     container_name: meilisearch
     image: getmeili/meilisearch:v1.9
+    environment:
+      - MEILI_HTTP_ADDR=localhost:80
     env_file:
-      - ./envs/masterkey.env.private
+      - ./masterkey.env.private
     expose:
-      - 7770
+      - 80
     volumes:
       - ./meilisearch/data.ms:/data.ms
     restart: unless-stopped
