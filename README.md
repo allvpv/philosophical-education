@@ -67,3 +67,10 @@ digitizing the journal's resources.
     cp ~/backup/strapi_mod.db ./databases/
     ```
 
+### Building and starting the application
+Expose port 80 and start the application with the following command:
+
+```
+docker-compose up --build
+```
+
