@@ -53,6 +53,8 @@ services:
              node /opt/website/builds/current/standalone/server.js"
     expose:
       - 80
+    volumes:
+      - ./nginx/website_static:/opt/website/builds/current/static
     depends_on:
       strapi:
         condition: service_healthy

@@ -1,5 +1,5 @@
 FROM node:20-slim AS final
-ENV WEBSITE_MAIN=${WEBSITE_MAIN}
+ENV WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
 
 # For health check
 RUN apt update
