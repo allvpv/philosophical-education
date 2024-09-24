@@ -1,6 +1,6 @@
 export HOST=0.0.0.0
 export PORT=80
-export WEBSITE=http://${WEBSITE_MAIN}/strapi
+export WEBSITE=http://${WEBSITE_MAIN_URL}/strapi
 export DATABASE_CLIENT=sqlite
 export DATABASE_FILENAME="/run/db"
 export PUBLIC=/srv
