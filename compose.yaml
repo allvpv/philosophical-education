@@ -9,7 +9,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/website_public:/website_public
-      - ./nginx/website_static:/website_static
+      - static-website-volume:/website_static
       - ./nginx/strapi_public:/strapi_public
       - ./nginx/old/index_pliki:/index_pliki
     depends_on:
@@ -50,11 +50,16 @@ services:
     # `npm run build` must be done when Strapi is already up and running
     command: >
       sh -c "npm run build &&
+             mv /opt/website/builds/current/static/* /opt/website/static/ &&
+             rmdir /opt/website/builds/current/static &&
+             ln -s /opt/website/static /opt/website/builds/current/static &&
              node /opt/website/builds/current/standalone/server.js"
+    # ^^^ Hack to cicumvent bug in Next.js: Do NOT mount /opt/website/builds/current/static
+    #     directly
     expose:
       - 80
     volumes:
-      - ./nginx/website_static:/opt/website/builds/current/static
+      - static-website-volume:/opt/website/static
     depends_on:
       strapi:
         condition: service_healthy
@@ -70,3 +75,5 @@ services:
     volumes:
       - ./meilisearch/data.ms:/data.ms
     restart: unless-stopped
+volumes:
+  static-website-volume:
