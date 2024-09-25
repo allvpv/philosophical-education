@@ -73,7 +73,7 @@ digitizing the journal's resources.
     Inside the container:
 
     ```
-    $ curl -X GET 'http://localhost/keys?limit=3' -H 'Authorization: Bearer <MASTER_KEY_HERE>'
+    $ curl -X GET 'http://localhost/keys?limit=3' -H 'Authorization: Bearer <MEILI_MASTER_KEY_HERE>'
     ```
 
     The required key is 'Default Search API Key' from the JSON output.
@@ -93,8 +93,9 @@ WEBSITE_MAIN_URL="http://192.168.106.5"
 
 ```
 cp ~/backup/strapi_mod.db ./storage/
+cp -r ~/backup/old_website ./storage/old_website
+cp -r ~/backup/strapi_public ./storage/strapi_public
 mkdir -p ./storage/data.ms
-mkdir -p ./storage/strapi_public/uploads # Or copy it over from backup
 ```
 
 #### 4. Build and start the application
