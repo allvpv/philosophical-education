@@ -136,17 +136,20 @@ Now, use `docker ps` to obtain ID of the old and the new replica (look at
 `CREATED` timestamp). Stop the former and immediately purge the Nginx cache:
 
 ```
-docker stop <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+docker pause <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
 ```
 
 Test if everything works correctly.
 * If so, you can remove the old container:
 
+        docker stop <OLD_CONTAINER_ID>
         docker rm <OLD_CONTAINER_ID>
 
 * Alternatively, if there is a problem, you can rollback:
 
-        docker start <OLD_CONTAINER_ID> && docker stop <NEW_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+        docker unpause <OLD_CONTAINER_ID> && docker pause <NEW_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+        docker stop <NEW_CONTAINER_ID>
+        docker rm <NEW_CONTAINER_ID>
 
   Then, remember to `git reset` and rebuild the image to reference the old,
   working version of the service.
