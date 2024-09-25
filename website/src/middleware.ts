@@ -13,14 +13,18 @@ const intlMiddleware = createIntlMiddleware({
 const redirect = (pathname: string): string | null => {
   let parts = pathname.split('/').filter(Boolean);
 
-  let checkRedirect = (parts: string[]) =>
+  let isRequestToApi = (parts: string[]) =>
+    parts.length !== 0 && parts[0] === 'api';
+  let isRequestToPartialUrl = (parts: string[]) =>
     parts.length === 0 || (parts.length === 1 && parts[0] == 'content');
 
-  if (checkRedirect(parts)) {
+  if (isRequestToApi(parts)) {
+    return null
+  }
+  if (isRequestToPartialUrl(parts)) {
     return defaultUrl;
   }
-
-  if (checkRedirect(parts.slice(1)) && locales.includes(parts[0])) {
+  if (isRequestToPartialUrl(parts.slice(1)) && locales.includes(parts[0])) {
     return `${parts[0]}${defaultUrl}`;
   }
 

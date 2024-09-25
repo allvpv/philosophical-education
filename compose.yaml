@@ -11,7 +11,7 @@ services:
       - ./storage/old_website:/old_website
       - ./storage/strapi_public:/strapi_public
       - ./website/public:/website_public
-      - static-website-volume:/website_static
+      - nextjs-static-volume:/nextjs_static
     depends_on:
       - strapi
       - website
@@ -57,17 +57,22 @@ services:
     # `npm run build` must be done when Strapi is already up and running
     command: >
       sh -c "npm run build &&
-             rm -fr /opt/website/static/* &&
-             mv /opt/website/builds/current/static/* /opt/website/static/ &&
+             mv /opt/website/builds/current/static/* /nextjs_static/ &&
              rmdir /opt/website/builds/current/static &&
-             ln -s /opt/website/static /opt/website/builds/current/static &&
+             ln -s /nextjs_static /opt/website/builds/current/static &&
              node /opt/website/builds/current/standalone/server.js"
     # ^^^ Hack to cicumvent bug in Next.js: Do NOT mount /opt/website/builds/current/static
     #     directly
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://website/api/healthz | grep -i 'All good'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 5m
     expose:
       - 80
     volumes:
-      - static-website-volume:/opt/website/static
+      - nextjs-static-volume:/nextjs_static
     depends_on:
       strapi:
         condition: service_healthy
@@ -84,4 +89,4 @@ services:
     volumes:
       - ./storage/data.ms:/data.ms
 volumes:
-  static-website-volume:
+  nextjs-static-volume:
