@@ -1,6 +1,6 @@
 services:
   nginx:
-    restart: always
+    restart: unless-stopped
     image: nginx:1-alpine
     expose:
       - 80
@@ -17,6 +17,7 @@ services:
       - website
       - meilisearch
   strapi:
+    restart: unless-stopped
     build:
       args:
         - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
@@ -48,6 +49,7 @@ services:
     depends_on:
       - meilisearch
   website:
+    restart: unless-stopped
     build:
       context: ./website
     environment:
@@ -70,6 +72,7 @@ services:
       strapi:
         condition: service_healthy
   meilisearch:
+    restart: unless-stopped
     container_name: meilisearch
     image: getmeili/meilisearch:v1.10
     environment:
@@ -80,6 +83,5 @@ services:
       - 80
     volumes:
       - ./storage/data.ms:/data.ms
-    restart: unless-stopped
 volumes:
   static-website-volume:
