@@ -1,7 +1,7 @@
 services:
   nginx:
     restart: unless-stopped
-    image: nginx:1-alpine
+    image: nginxinc/nginx-unprivileged
     expose:
       - 80
     ports:
@@ -12,7 +12,7 @@ services:
       - ./storage/strapi_public:/strapi_public
       - ./website/public:/website_public
       - nextjs-static-volume:/nextjs_static
-      - nginx-cache-volume:/nginx_cache
+      - ./storage/nginx_cache:/var/cache/nginx
     depends_on:
       - strapi
       - website
@@ -56,16 +56,13 @@ services:
     environment:
       - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
     # `npm run build` must be done when Strapi is already up and running
-    # remember to clear nginx_cache before restarting service!
     command: >
       sh -c "npm run build &&
-             mv /opt/website/builds/current/static/* /nextjs_static/ &&
-             rmdir /opt/website/builds/current/static &&
+             rsync -a /opt/website/builds/current/static/* /nextjs_static &&
+             rm -fr /opt/website/builds/current/static &&
              ln -s /nextjs_static /opt/website/builds/current/static &&
              rm -fr /nginx_cache/* &&
              node /opt/website/builds/current/standalone/server.js"
-     # ^^^ Do NOT mount /opt/website/builds/current/static directly
-     #     (Hack to cicumvent the bug in Next.js:)
     healthcheck:
       test: ["CMD-SHELL", "curl http://website/api/healthz | grep -i 'All good'"]
       interval: 10s
@@ -76,7 +73,7 @@ services:
       - 80
     volumes:
       - nextjs-static-volume:/nextjs_static
-      - nginx-cache-volume:/nginx_cache
+      - ./storage/nginx_cache:/nginx_cache
     depends_on:
       strapi:
         condition: service_healthy
@@ -94,4 +91,3 @@ services:
       - ./storage/data.ms:/data.ms
 volumes:
   nextjs-static-volume:
-  nginx-cache-volume:

@@ -132,8 +132,9 @@ docker-compose build website --no-cache
 docker-compose up -d --no-deps --scale website=2 --no-recreate website
 ```
 
-Now, use `docker ps` to obtain ID of the old and the new replica (look at
-`CREATED` timestamp). Stop the former and immediately purge the Nginx cache:
+Once the service started and is healthy, use `docker ps` to obtain ID of the
+old and the new replica (look at `CREATED` timestamp). Stop the former and
+immediately purge the Nginx cache:
 
 ```
 docker pause <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
