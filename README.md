@@ -6,7 +6,7 @@ digitizing the journal's resources.
 [[Issues and articles]](https://edufil.allvpv.org/archive/latest)
 
 
-### Overview
+## Overview
 - Front-end uses Next.js and React. Strapi is an incredibly heavy CMS to manage
   articles/issues and static content. Meilisearch is an amazing search engine
   compatible with Algolia front-end libraries.
@@ -15,7 +15,7 @@ digitizing the journal's resources.
   the terms of the GNU General Public License as published by the Free Software
   Foundation, version 3.
 
-### Setup
+## Setup
 
 #### 1. Create secrets
 
@@ -111,3 +111,46 @@ the website and backend can take around 20 minutes.
 Once all containers are up, configure a reverse proxy to expose port 8080 to
 the address specified in `WEBSITE_MAIN_URL`.
 
+## New version deployment
+
+You should avoid any downtime between deployments (zero-downtime deployment).
+
+To achieve this, you can use `docker-compose` (with it's built-in loadbalancer)
+to:
+- Make a secondary replica of a service.
+- Temporary stop the first replica.
+- Test everything, and then:
+  * destroy the first replia, or
+  * rollback.
+
+Here is how you can do that.
+
+First, create a secondary replia:
+
+```
+docker-compose build website --no-cache
+docker-compose up -d --no-deps --scale website=2 --no-recreate website
+```
+
+Now, use `docker ps` to obtain ID of the old and the new replica (look at
+`CREATED` timestamp). Stop the former and immediately purge the Nginx cache:
+
+```
+docker stop <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+```
+
+Test if everything works correctly.
+* If so, you can remove the old container:
+
+        docker rm <OLD_CONTAINER_ID>
+
+* Alternatively, if there is a problem, you can rollback:
+
+        docker start <OLD_CONTAINER_ID> && docker stop <NEW_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+
+  Then, remember to `git reset` and rebuild the image to reference the old,
+  working version of the service.
+
+
+You probably can also configure a solution like Docker Swarm mode, Kubernetes or
+Traefik to do it automatically.
