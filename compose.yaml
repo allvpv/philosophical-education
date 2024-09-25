@@ -37,7 +37,7 @@ services:
         target: /strapi_public
     healthcheck:
       test: ["CMD-SHELL", "curl http://strapi/ | grep -i 'The server is running successfully'"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 30
       start_period: 5m
