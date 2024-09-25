@@ -68,6 +68,11 @@ digitizing the journal's resources.
     mkdir -p ./meilisearch/data.ms
     ```
 
+    Make sure required directories exist:
+    ```
+    mkdir -p ./nginx/strapi_public/uploads # Or copy it over from backup
+    ```
+
 ### Building and starting the application
 Expose port 8080 and start the application with the following command:
 
