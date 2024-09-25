@@ -70,9 +70,9 @@ services:
         condition: service_healthy
   meilisearch:
     container_name: meilisearch
-    image: getmeili/meilisearch:v1.9
+    image: getmeili/meilisearch:v1.10
     environment:
-      - MEILI_HTTP_ADDR=localhost:80
+      - MEILI_HTTP_ADDR=0.0.0.0:80
     env_file:
       - ./masterkey.env.private
     expose:
