@@ -53,8 +53,8 @@ digitizing the journal's resources.
   `STRAPI_SECRET_KEY`, `NEXT_PUBLIC_MEILISEARCH_KEY`.
 
   ```
-  STRAPI_SECRET_KEY="<...>"
-  NEXT_PUBLIC_MEILISEARCH_KEY="<...>"
+  export STRAPI_SECRET_KEY="<...>"
+  export NEXT_PUBLIC_MEILISEARCH_KEY="<...>"
   ```
 
   - You can obtain valid `NEXT_PUBLIC_MEILISEARCH_KEY` by using the REST
@@ -105,5 +105,9 @@ Start the application with the following command:
 docker-compose up --build
 ```
 
-Configure a reverse proxy to expose port 8080 to the address specified in
-`WEBSITE_MAIN_URL`.
+Because Strapi is a bloatware, installing all NPM dependencies and building
+the website and backend can take around 20 minutes.
+
+Once all containers are up, configure a reverse proxy to expose port 8080 to
+the address specified in `WEBSITE_MAIN_URL`.
+
