@@ -137,7 +137,7 @@ old and the new replica (look at `CREATED` timestamp). Stop the former and
 immediately purge the Nginx cache:
 
 ```
-docker stop <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+docker stop <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/*
 ```
 
 Test if everything works correctly.
@@ -149,7 +149,7 @@ Test if everything works correctly.
 * Alternatively, if there is a problem, you can rollback:
 
         docker start <OLD_CONTAINER_ID>
-        docker stop <NEW_CONTAINER_ID> && rm -fr ./storage/nginx_cache/cache/*
+        docker stop <NEW_CONTAINER_ID> && rm -fr ./storage/nginx_cache/*
         docker rm <NEW_CONTAINER_ID>
 
   Then, remember to `git reset` and rebuild the image to reference the old,
