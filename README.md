@@ -92,9 +92,9 @@ WEBSITE_MAIN_URL="http://192.168.106.5"
 #### 3. Verify that all necessary files and databases are in place.
 
 ```
-cp ~/backup/strapi_mod.db ./databases/
-mkdir -p ./meilisearch/data.ms
-mkdir -p ./nginx/strapi_public/uploads # Or copy it over from backup
+cp ~/backup/strapi_mod.db ./storage/
+mkdir -p ./storage/data.ms
+mkdir -p ./storage/strapi_public/uploads # Or copy it over from backup
 ```
 
 #### 4. Build and start the application

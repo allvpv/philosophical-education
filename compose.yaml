@@ -7,11 +7,11 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/website_public:/website_public
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./storage/old_website:/old_website
+      - ./storage/strapi_public:/strapi_public
+      - ./website/public:/website_public
       - static-website-volume:/website_static
-      - ./nginx/strapi_public:/strapi_public
-      - ./nginx/old/index_pliki:/index_pliki
     depends_on:
       - strapi
       - website
@@ -30,11 +30,11 @@ services:
       - 80
     volumes:
       - type: bind
-        source: ./databases/strapi_mod.db
-        target: /run/db
+        source: ./storage/strapi_mod.db
+        target: /strapi_mod.db
       - type: bind
-        source: ./nginx/strapi_public
-        target: /srv
+        source: ./storage/strapi_public
+        target: /strapi_public
     healthcheck:
       test: ["CMD-SHELL", "curl http://strapi/ | grep -i 'The server is running successfully'"]
       interval: 5s
@@ -55,6 +55,7 @@ services:
     # `npm run build` must be done when Strapi is already up and running
     command: >
       sh -c "npm run build &&
+             rm -fr /opt/website/static/* &&
              mv /opt/website/builds/current/static/* /opt/website/static/ &&
              rmdir /opt/website/builds/current/static &&
              ln -s /opt/website/static /opt/website/builds/current/static &&
@@ -78,7 +79,7 @@ services:
     expose:
       - 80
     volumes:
-      - ./meilisearch/data.ms:/data.ms
+      - ./storage/data.ms:/data.ms
     restart: unless-stopped
 volumes:
   static-website-volume:
