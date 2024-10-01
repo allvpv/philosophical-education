@@ -147,7 +147,7 @@ export function YearPicker(params: {
       if (count == 1) {
         return 'numer';
       } else if (
-        Math.floor(count / 10) != 1 &&
+        (Math.floor(count / 10) % 10) != 1 &&
         count % 10 >= 2 &&
         count % 10 <= 4
       ) {
