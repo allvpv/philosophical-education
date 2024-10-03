@@ -27,6 +27,7 @@ services:
       - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
     env_file:
       - ./masterkey.env.private
+      - ./strapi.env.private
     command: npm run start
     expose:
       - 80
@@ -55,6 +56,10 @@ services:
       context: ./website
     environment:
       - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+    env_file:
+      - ./masterkey.env.private
+      - ./website/env
+      - ./website.env.private
     # `npm run build` must be done when Strapi is already up and running
     command: >
       sh -c "npm run build &&

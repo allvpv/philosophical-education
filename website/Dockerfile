@@ -8,4 +8,3 @@ WORKDIR /opt/website
 COPY package.json ./
 RUN npm install
 COPY . .
-ENTRYPOINT ["/opt/website/entrypoint.sh"]

@@ -17,12 +17,6 @@ digitizing the journal's resources.
 
 ## Setup
 
-### Warning ❗❗❗
-
-Currently, the secret keys are included in the Docker image. Make sure not to
-store this image in any public artifactory.
-
-
 #### 1. Create secrets
 
 * Meilisearch
@@ -35,7 +29,7 @@ store this image in any public artifactory.
 
 * Strapi
 
-  Create `strapi/env.private` file and fill it with apriopriate variables:
+  Create `strapi.env.private` file and fill it with apriopriate variables:
   `APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`,
   `JWT_SECRET`.
 
@@ -46,16 +40,16 @@ store this image in any public artifactory.
       declare "KEY${i}"=$(randkey)
   done
 
-  echo "export APP_KEYS=$KEY1,$KEY2,$KEY3,$KEY4" >> strapi/env.private
-  echo "export API_TOKEN_SALT=$KEY5" >> strapi/env.private
-  echo "export ADMIN_JWT_SECRET=$KEY6" >> strapi/env.private
-  echo "export TRANSFER_TOKEN_SALT=$KEY7" >> strapi/env.private
-  echo "export JWT_SECRET=$KEY8" >> strapi/env.private
+  echo "export APP_KEYS=$KEY1,$KEY2,$KEY3,$KEY4" >> strapi.env.private
+  echo "export API_TOKEN_SALT=$KEY5" >> strapi.env.private
+  echo "export ADMIN_JWT_SECRET=$KEY6" >> strapi.env.private
+  echo "export TRANSFER_TOKEN_SALT=$KEY7" >> strapi.env.private
+  echo "export JWT_SECRET=$KEY8" >> strapi.env.private
   ```
 
 * Website
 
-  Create `website/env.private` file and fill it with apriopriate variables:
+  Create `website.env.private` file and fill it with apriopriate variables:
   `STRAPI_SECRET_KEY`, `NEXT_PUBLIC_MEILISEARCH_KEY`.
 
   ```

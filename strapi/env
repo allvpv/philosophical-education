@@ -6,3 +6,4 @@ export DATABASE_FILENAME="/strapi_mod.db"
 export PUBLIC=/strapi_public
 export NODE_ENV=production
 export MEILI_LOCAL_URL="http://meilisearch"
+export GMAIL_ACCOUNT_PASSWORD_RESET="ef.strapi@gmail.com"

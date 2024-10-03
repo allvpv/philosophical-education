@@ -10,13 +10,13 @@ export default ({ env }) => ({
         host: 'smtp.gmail.com',
         port: 465,
         auth: {
-          user: 'ef.strapi@gmail.com',
-          pass: env('SMTP_PASSWORD'),
+          user: env('GMAIL_ACCOUNT_PASSWORD_RESET'),
+          pass: env('GMAIL_SMTP_PASSWORD'),
         },
       },
       settings: {
-        defaultFrom: 'ef.strapi@gmail.com',
-        defaultReplyTo: 'ef.strapi@gmail.com',
+        defaultFrom: env('GMAIL_ACCOUNT_PASSWORD_RESET'),
+        defaultReplyTo: env('GMAIL_PASSWORD_RESET'),
       },
     },
   },
