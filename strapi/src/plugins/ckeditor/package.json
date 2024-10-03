@@ -53,7 +53,7 @@
     "@ckeditor/ckeditor5-page-break": "43.1.1",
     "@ckeditor/ckeditor5-paragraph": "43.1.1",
     "@ckeditor/ckeditor5-paste-from-office": "43.1.1",
-    "@ckeditor/ckeditor5-react": "9.2.0",
+    "@ckeditor/ckeditor5-react": "9.3.0",
     "@ckeditor/ckeditor5-remove-format": "43.1.1",
     "@ckeditor/ckeditor5-special-characters": "43.1.1",
     "@ckeditor/ckeditor5-table": "43.1.1",
@@ -68,7 +68,7 @@
   },
   "engines": {
     "node": ">=14.19.1 <=20.x.x",
-    "npm": ">=6.0.0"
+    "npm": ">=10.0.0"
   },
-  "license": "MIT"
+  "license": "GPL"
 }

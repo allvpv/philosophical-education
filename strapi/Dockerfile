@@ -2,16 +2,17 @@ FROM node:20-slim AS final
 ENV WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
 
 # For health check
-RUN apt update
-RUN apt -y install curl
-
-COPY . /opt/strapi
-ENTRYPOINT ["/opt/strapi/entrypoint.sh"]
+RUN apt update && apt -y install curl
 
 WORKDIR /opt/strapi/src/plugins/ckeditor
-RUN npm install
+COPY src/plugins/ckeditor/package.json .
+RUN npm install --loglevel verbose
 
 WORKDIR /opt/strapi
+COPY package.json .
+RUN npm install --loglevel verbose
 
-RUN npm install
+COPY . .
+
+ENTRYPOINT ["/opt/strapi/entrypoint.sh"]
 RUN /opt/strapi/entrypoint.sh npm run strapi build
