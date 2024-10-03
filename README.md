@@ -17,6 +17,12 @@ digitizing the journal's resources.
 
 ## Setup
 
+### Warning ❗❗❗
+
+Currently, the secret keys are included in the Docker image. Make sure not to
+store this image in any public artifactory.
+
+
 #### 1. Create secrets
 
 * Meilisearch
