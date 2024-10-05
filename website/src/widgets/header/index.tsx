@@ -9,6 +9,7 @@ import {
 
 import ThemeSwitcher from './theme_switcher';
 import LocaleSwitcher from './locale_switcher';
+import { LocaleType } from  './locale_switcher';
 import MonoToggle from './mono_toggle';
 import HeaderBackground from './header_background';
 import Nav from './nav';
@@ -23,6 +24,7 @@ const HeaderSeparator = () => (
 export default function Header({ locale }: { locale: string }) {
   const t = useTranslations('Themes');
   const themes = getThemesWithTranslation(t);
+  const localeSanitized = locale === "pl" ? "pl" : "en";
 
   return (
     <React.Fragment>
@@ -38,7 +40,7 @@ export default function Header({ locale }: { locale: string }) {
           <Nav locale={locale} />
         </span>
         <span className="order-2 mr-1 flex w-[82px] grow justify-start sm:justify-end">
-          <LocaleSwitcherButton locale={locale} />
+          <LocaleSwitcherButton locale={localeSanitized} />
         </span>
         <span className="order-4 -ml-2 hidden md:block">
           <HeaderSeparator />
@@ -59,7 +61,7 @@ export default function Header({ locale }: { locale: string }) {
 export function LocaleSwitcherButton({
   locale,
 }: {
-  locale: string;
+  locale: LocaleType;
 }): JSX.Element {
   const fullNames = {
     en: 'English',

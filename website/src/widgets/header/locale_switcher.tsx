@@ -6,13 +6,15 @@ import { Listbox } from '@headlessui/react';
 import { usePathname, useRouter } from '@/navigation';
 import { useState, useEffect, useTransition, Fragment } from 'react';
 
+export type LocaleType = "pl" | "en" | undefined
+
 export default function LocaleSwitcher({
   children,
   fullNames,
   currentLocale,
 }: PropsWithChildren<{
   fullNames: Record<string, string>;
-  currentLocale: string;
+  currentLocale: LocaleType;
 }>) {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
@@ -31,7 +33,7 @@ export default function LocaleSwitcher({
     );
   }
 
-  function onSelectChange(nextLocale: string) {
+  function onSelectChange(nextLocale: LocaleType) {
     router.replace(pathname, { locale: nextLocale /*, scroll: false*/ });
   }
 

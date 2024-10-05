@@ -1,3 +1,5 @@
+#!/bin/sh
+
 get_public_meilisearch_key() {
   curl -X GET 'http://meilisearch/keys?limit=3'                               \
        -H "Authorization: Bearer $MEILI_MASTER_KEY" |                         \
