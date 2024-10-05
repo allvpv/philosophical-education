@@ -60,14 +60,8 @@ services:
       - ./masterkey.env.private
       - ./website/env
       - ./website.env.private
-    # `npm run build` must be done when Strapi is already up and running
     command: >
-      sh -c "npm run build &&
-             rsync -a /opt/website/builds/current/static/* /nextjs_static &&
-             rm -fr /opt/website/builds/current/static &&
-             ln -s /nextjs_static /opt/website/builds/current/static &&
-             rm -fr /nginx_cache/* &&
-             node /opt/website/builds/current/standalone/server.js"
+      sh -c "/opt/website/bootstrap.sh"
     healthcheck:
       test: ["CMD-SHELL", "curl http://website/api/healthz | grep -i 'All good'"]
       interval: 10s
@@ -82,6 +76,8 @@ services:
     depends_on:
       strapi:
         condition: service_healthy
+      meilisearch:
+        condition: service_healthy
   meilisearch:
     restart: unless-stopped
     container_name: meilisearch
@@ -94,5 +90,11 @@ services:
       - 80
     volumes:
       - ./storage/data.ms:/data.ms
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://meilisearch/health | grep -i 'available'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 5m
 volumes:
   nextjs-static-volume:

@@ -49,37 +49,16 @@ digitizing the journal's resources.
 
 * Website
 
-  Create `website.env.private` file and fill it with apriopriate variables:
-  `STRAPI_SECRET_KEY`, `NEXT_PUBLIC_MEILISEARCH_KEY`.
+  Create a `./website.env.private` file and export the required variable:
+  `STRAPI_SECRET_KEY`.
 
   ```
   export STRAPI_SECRET_KEY="<...>"
-  export NEXT_PUBLIC_MEILISEARCH_KEY="<...>"
   ```
 
-  - You can obtain valid `NEXT_PUBLIC_MEILISEARCH_KEY` by using the REST
-    API from the meilisearch container (ensure the container is started
-    first, for example by running `docker-compose up --build`):
-
-    ```
-    $ docker ps
-    CONTAINER ID   IMAGE                             COMMAND  [...]
-    abcdef012345   getmeili/meilisearch:v1.10        "tini -- [...]
-    [...]
-
-    $ docker exec -it abcdef012345 sh
-    ```
-
-    Inside the container:
-
-    ```
-    $ curl -X GET 'http://localhost/keys?limit=3' -H 'Authorization: Bearer <MEILI_MASTER_KEY_HERE>'
-    ```
-
-    The required key is 'Default Search API Key' from the JSON output.
-
-  - You can retrieve the `STRAPI_SECRET_KEY` from Strapi's admin panel by navigating to Settings ➡️ API Tokens.
-    Make sure to grant **read** access to everything.
+  You can retrieve the `STRAPI_SECRET_KEY` from Strapi's admin panel by
+  navigating to Settings ➡️ API Tokens. Make sure to grant **read** access to
+  everything.
 
 #### 2. Adjust the main URL
 

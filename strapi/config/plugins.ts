@@ -16,7 +16,7 @@ export default ({ env }) => ({
       },
       settings: {
         defaultFrom: env('GMAIL_ACCOUNT_PASSWORD_RESET'),
-        defaultReplyTo: env('GMAIL_PASSWORD_RESET'),
+        defaultReplyTo: env('GMAIL_ACCOUNT_PASSWORD_RESET'),
       },
     },
   },
