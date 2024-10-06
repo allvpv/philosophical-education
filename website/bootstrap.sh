@@ -1,7 +1,7 @@
 #!/bin/sh
 
 get_public_meilisearch_key() {
-  curl -X GET 'http://meilisearch/keys?limit=3'                               \
+  curl -X GET "$MEILI_URL_INTERNAL/keys?limit=3"                              \
        -H "Authorization: Bearer $MEILI_MASTER_KEY" |                         \
     jq -r '.results | .[] | select(.name == "Default Search API Key") | .key'
 }

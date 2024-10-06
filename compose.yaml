@@ -55,10 +55,13 @@ services:
     build:
       context: ./website
     environment:
-      - WEBSITE_MAIN_URL=${WEBSITE_MAIN_URL}
+      - PORT=80
+      - STRAPI_URL_INTERNAL=http://strapi
+      - MEILI_URL_INTERNAL=http://meilisearch
+      - NEXT_PUBLIC_STRAPI_URL=${WEBSITE_MAIN_URL}/strapi
+      - NEXT_PUBLIC_MEILISEARCH_URL=${WEBSITE_MAIN_URL}/meilisearch
     env_file:
       - ./masterkey.env.private
-      - ./website/env
       - ./website.env.private
     command: >
       sh -c "/opt/website/bootstrap.sh"
