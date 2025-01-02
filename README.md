@@ -3,7 +3,7 @@ Education”) academic journal, a peer-reviewed biannual journal published by th
 University of Warsaw. The website was created as a part of the grant work on
 digitizing the journal's resources.
 
-[[Issues and articles]](https://edufil.allvpv.org/archive/latest)
+[[Issues and articles]](https://edukacja-filozoficzna.uw.edu.pl/en/archive/latest)
 
 
 ## Overview
