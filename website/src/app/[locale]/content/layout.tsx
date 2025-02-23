@@ -3,7 +3,7 @@ import * as React from 'react';
 import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
-import { unstable_setRequestLocale, getTranslations } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 
 import { getContentMetadata } from '@/strapi_data';
 import { SidebarDefault, SidebarMini } from '@/widgets/sidebar';
@@ -33,7 +33,7 @@ export default async function Layout({
   params: { locale: string };
 }) {
   let locale = params.locale;
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   let contentMetadata = await getContentMetadata(locale);
 

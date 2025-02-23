@@ -4,42 +4,14 @@ import type { Metadata } from 'next';
 
 import { memo } from 'react';
 import { notFound } from 'next/navigation';
-import { headers } from 'next/headers';
-import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { getIssuesList, getIssue } from '@/strapi_data';
 import { ArticleWidget } from '@/widgets/article';
 
 import getMasonry from '@/widgets/masonry';
 
-import { Issue, Article } from '@/types';
-
-type Props = {
-  params: { locale: string };
-};
-
-/*
-export async function generateStaticParams(): Promise<
-  { locale: string; slug: string }[]
-> {
-  const { list } = await getIssuesList();
-
-  return ['pl', 'en'].flatMap((locale) => {
-    const issues = list.map((issue) => ({
-      locale: locale,
-      slug: issue.slug,
-    }));
-
-    const withLatest = [{
-      locale: locale,
-      slug: 'latest',
-    }, ...issues];
-
-    return withLatest;
-  });
-}
-*/
+import { Article } from '@/types';
 
 export async function generateMetadata({
   params,
@@ -90,7 +62,7 @@ export default async function ArchivePage({
 }: {
   params: { slug: string; locale: string };
 }) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'Article' });
   const issue = await getIssueFromSlug(slug);

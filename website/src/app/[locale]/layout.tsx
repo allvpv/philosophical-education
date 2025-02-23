@@ -1,17 +1,14 @@
 import '@/style.css';
 
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
 
 import Fonts from '@/helpers/fonts';
 import Header from '@/widgets/header';
 import { themes } from '@/helpers/themes';
+import { locales } from '@/i18n/routing';
 
 import ThemeProviderClient from '@/helpers/theme_provider';
-
-// Can be imported from a shared config
-const locales: Array<string> = ['pl', 'en'];
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -26,10 +23,13 @@ export default async function LocaleLayout({
 }) {
   const { locale } = params;
 
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale)) notFound();
+  if (!locales.includes(locale)) {
+    notFound();
+  }
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
+
+  const fonts = Fonts.map((f) => f.variable).join(' ');
 
   return (
     <html lang={locale} className="light" style={{ colorScheme: 'light' }}>
@@ -42,8 +42,7 @@ export default async function LocaleLayout({
           content="telephone=no, date=no, email=no, address=no"
         />
       </head>
-      <body
-        className={`colors-body-background font-sans ${Fonts.map((f) => f.variable).join('')}`}>
+      <body className={`colors-body-background font-sans ${fonts}`}>
         <ThemeProviderClient themes={themes.map((theme) => theme.value)}>
           <main className="flex min-h-[max(100dvh,768px)] flex-col pt-[64px]">
             <header className="fixed top-0 z-[99] order-[100] h-[64px] w-full backdrop-blur">

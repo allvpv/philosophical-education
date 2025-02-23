@@ -4,7 +4,8 @@ import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
 import { getContentMetadata, getSanitizedPageContent } from '@/strapi_data';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
+import { locales } from '@/i18n/routing';
 
 export async function generateStaticParams(): Promise<
   { locale: string; slug: string }[]
@@ -12,7 +13,7 @@ export async function generateStaticParams(): Promise<
   let dataIt = (await getContentMetadata('pl'))?.pagesMetadata?.values();
   let data = dataIt ? [...dataIt].map((v) => v.slug) : Array<string>();
 
-  return ['pl', 'en'].flatMap((locale) =>
+  return locales.flatMap((locale) =>
     data.map((slug) => ({
       locale: locale,
       slug: slug,
@@ -41,7 +42,7 @@ export default async function Index({
   params: { slug: string; locale: string };
 }) {
   let locale = params.locale;
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   let slug = params.slug;
   let contentMetadata = await getContentMetadata(locale);

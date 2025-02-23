@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { getContentMetadata } from '@/strapi_data';
 import { getIssuesList } from '@/strapi_data';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 import ChoiceBar from '@/widgets/choice';
 
@@ -34,7 +34,7 @@ export default async function Layout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  unstable_setRequestLocale(params.locale);
+  setRequestLocale(params.locale);
 
   const contentMetadata = await getContentMetadata(params.locale);
   const t = await getTranslations({
