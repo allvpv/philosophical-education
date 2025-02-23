@@ -12,7 +12,6 @@ services:
       - ./storage/strapi_public:/strapi_public
       - ./website/public:/website_public
       - nextjs-static-volume:/nextjs_static
-      - ./storage/nginx_cache:/var/cache/nginx
     depends_on:
       - strapi
       - website
@@ -75,12 +74,20 @@ services:
       - 80
     volumes:
       - nextjs-static-volume:/nextjs_static
-      - ./storage/nginx_cache:/nginx_cache
     depends_on:
       strapi:
         condition: service_healthy
       meilisearch:
         condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./website
+          target: /opt/website
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
   meilisearch:
     restart: unless-stopped
     container_name: meilisearch
