@@ -167,19 +167,19 @@ const ScrollButton = ({
   nearJmp,
 }: any) => (
   <div
-    className={
-      'w-max-content group flex h-full items-center ' +
-      `justify-center ${appendClass} colors-choice-chevron-bg overflow-visible` +
-      (direction === 'left' ? 'flex-row-reverse' : '')
-    }>
+    className={clsx(
+      'w-max-content group flex h-full items-center',
+      `justify-center ${appendClass} colors-choice-chevron-bg overflow-visible`,
+      direction === 'left' ? 'flex-row-reverse' : '',
+    )}>
     <button
-      className={
-        'hover:colors-choice-chevron-hover h-10 rounded-full sm:h-12 ' +
-        '-mr-2 flex items-center justify-center overflow-visible' +
-        'transition-[width,opacity] duration-[150ms]' +
-        'pointer-events-none group-hover:animate-[enable-pointer-events_160ms_forwards]' +
-        'w-0 opacity-0 group-hover:w-10 group-hover:opacity-100 sm:group-hover:w-12'
-      }
+      className={clsx(
+        'hover:colors-choice-chevron-hover h-10 rounded-full sm:h-12',
+        '-mr-2 flex items-center justify-center overflow-visible',
+        'transition-[width,opacity] duration-[150ms]',
+        'pointer-events-none group-hover:animate-[enable-pointer-events_160ms_forwards]',
+        'w-0 opacity-0 group-hover:w-10 group-hover:opacity-100 sm:group-hover:w-12',
+      )}
       onClick={nearJmp}>
       <span>
         <Chevron
@@ -190,10 +190,10 @@ const ScrollButton = ({
       </span>
     </button>
     <button
-      className={
-        'hover:colors-choice-chevron-hover h-10 w-10 rounded-full sm:h-12 sm:w-12 ' +
-        'flex items-center justify-center overflow-visible'
-      }
+      className={clsx(
+        'hover:colors-choice-chevron-hover h-10 w-10 rounded-full sm:h-12 sm:w-12',
+        'flex items-center justify-center overflow-visible',
+      )}
       onClick={farJmp}>
       <Chevron
         direction={direction}
@@ -210,10 +210,10 @@ const ScrollGradient = ({ direction, appendClass = '' }: any) => {
 
   return (
     <data
-      className={
-        'colors-choice-gradient h-full w-8 from-transparent sm:w-16 xs:w-12 ' +
-        `pointer-events-none ${gradientDir} ${appendClass}`
-      }
+      className={clsx(
+        'colors-choice-gradient h-full w-8 from-transparent sm:w-16 xs:w-12',
+        `pointer-events-none ${gradientDir} ${appendClass}`,
+      )}
     />
   );
 };

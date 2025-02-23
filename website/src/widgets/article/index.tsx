@@ -618,9 +618,9 @@ function CopyBibTeXButton({ onClick, translations }: any) {
               'flex items-center justify-center gap-1',
               'absolute left-0 top-0 h-full',
               !showCopied &&
-                'invisible ' +
-                  'opacity-0 transition-pass-[visibility_0s_step-end_500ms,opacity_150ms_350ms]' +
-                  '[&_path]:animate-[tick-back_500ms_reverse_forwards]',
+                `invisible opacity-0
+                transition-pass-[visibility_0s_step-end_500ms,opacity_150ms_350ms]
+                [&_path]:animate-[tick-back_500ms_reverse_forwards]`,
               showCopied &&
                 'visible opacity-100 [&_path]:animate-[tick_500ms_forwards]',
             )}>
@@ -630,13 +630,10 @@ function CopyBibTeXButton({ onClick, translations }: any) {
             className={clsx(
               'shrink-1 mx-1.5 flex items-center justify-center overflow-hidden pl-6',
               !showCopied &&
-                'invisible ' +
-                  'transition-pass-[visibility_0s_step-end_300ms,opacity_100ms_ease-in_50ms]' +
-                  'opacity-0',
+                `invisible opacity-0
+                transition-pass-[visibility_0s_step-end_300ms,opacity_100ms_ease-in_50ms]`,
               showCopied &&
-                'visible ' +
-                  'transition-pass-[opacity_120ms_ease-in]' +
-                  'opacity-100',
+                'visible opacity-100 transition-pass-[opacity_120ms_ease-in]',
             )}>
             {translations.copiedText}
           </span>
