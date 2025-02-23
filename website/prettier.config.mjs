@@ -4,5 +4,9 @@ export default {
   quoteProps: 'consistent',
   trailingComma: 'all',
   bracketSameLine: true,
-  plugins: ['prettier-plugin-tailwindcss'],
+  plugins: [
+    'prettier-plugin-tailwindcss',
+    'prettier-plugin-classnames',
+    'prettier-plugin-merge'
+  ],
 };

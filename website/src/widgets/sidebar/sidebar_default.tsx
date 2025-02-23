@@ -40,13 +40,13 @@ export default function SidebarDefaultContent({
 
   return (
     <aside
-      className="hoverable:scrollbar-maclike hoverable:scrollbar-sidebar-colors
-                 sticky top-[calc(64px-8px)] ml-5 mr-1 hidden h-full
-                 max-h-[calc(100dvh-64px+8px)] w-[216px] shrink-0 overflow-x-hidden
-                 overflow-y-scroll scroll-smooth pt-[8px] sm:block md:top-[calc(64px-20px)]
-                 md:mr-[1rem] md:max-h-[calc(100dvh-64px+20px)] md:w-[232px] md:pt-[20px]
-                 lg:ml-16 lg:w-[272px] hoverable:[&::-webkit-scrollbar-track]:my-[8px]
-                 md:hoverable:[&::-webkit-scrollbar-track]:my-[20px]"
+      className="hoverable:scrollbar-maclike hoverable:scrollbar-sidebar-colors sticky
+        top-[calc(64px-8px)] ml-5 mr-1 hidden h-full max-h-[calc(100dvh-64px+8px)]
+        w-[216px] shrink-0 overflow-x-hidden overflow-y-scroll scroll-smooth pt-[8px]
+        sm:block md:top-[calc(64px-20px)] md:mr-[1rem] md:max-h-[calc(100dvh-64px+20px)]
+        md:w-[232px] md:pt-[20px] lg:ml-16 lg:w-[272px]
+        hoverable:[&::-webkit-scrollbar-track]:my-[8px]
+        md:hoverable:[&::-webkit-scrollbar-track]:my-[20px]"
       ref={containerRef as React.RefObject<HTMLDivElement>}>
       {/* height: 0, do not try to fix that, you will break something you
           would never think about (e.g. test if sidebar height is shrinked
@@ -64,8 +64,8 @@ export default function SidebarDefaultContent({
           activeRef={activeRef}
         />
         <div
-          className="to-page-bg-color pointer-events-none sticky bottom-0
-                     mt-auto h-[20px] w-[100%] bg-gradient-to-b from-transparent md:h-[40px]"
+          className="to-page-bg-color pointer-events-none sticky bottom-0 mt-auto h-[20px] w-[100%]
+            bg-gradient-to-b from-transparent md:h-[40px]"
         />
       </nav>
     </aside>

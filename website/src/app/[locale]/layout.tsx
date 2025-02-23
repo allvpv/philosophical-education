@@ -43,9 +43,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`colors-body-background font-sans ${Fonts.map(
-          (f) => f.variable,
-        ).join(' ')}`}>
+        className={`colors-body-background font-sans ${Fonts.map((f) => f.variable).join('')}`}>
         <ThemeProviderClient themes={themes.map((theme) => theme.value)}>
           <main className="flex min-h-[max(100dvh,768px)] flex-col pt-[64px]">
             <header className="fixed top-0 z-[99] order-[100] h-[64px] w-full backdrop-blur">
@@ -66,17 +64,9 @@ const Footer = () => (
     <div className="colors-background prose-tweaked w-full">
       <div className="colors-border-footer colors-footer mx-auto max-w-7xl">
         <div
-          className="
-          justify-items-between
-          mx-[5%]
-          grid
-          auto-cols-min grid-flow-row
-          justify-between
-          gap-x-7
-          gap-y-7
-          px-3 py-10 sm:grid-cols-[1fr_1fr]
-          md:mx-[calc(11%-4.25rem)] lg:grid-cols-[1fr_1fr_1fr]
-          lg:grid-rows-1">
+          className="justify-items-between mx-[5%] grid auto-cols-min grid-flow-row justify-between
+            gap-x-7 gap-y-7 px-3 py-10 sm:grid-cols-[1fr_1fr] md:mx-[calc(11%-4.25rem)]
+            lg:grid-cols-[1fr_1fr_1fr] lg:grid-rows-1">
           <div className="whitespace-nowrap">
             półrocznik/semi-annual
             <br />

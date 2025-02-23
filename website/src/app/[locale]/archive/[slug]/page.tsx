@@ -53,9 +53,9 @@ export async function generateMetadata({
   );
   const issue = id ? await getIssue(id) : null;
   const label = issue
-    ? (params.locale === 'pl' ? issue.label_pl : issue.label_en) ??
+    ? ((params.locale === 'pl' ? issue.label_pl : issue.label_en) ??
       issue.label_pl ??
-      issue.label_en
+      issue.label_en)
     : null;
 
   return { title: label };

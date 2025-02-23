@@ -3,10 +3,10 @@
 import { PropsWithChildren } from 'react';
 import { Listbox } from '@headlessui/react';
 
-import { usePathname, useRouter } from '@/navigation';
+import { useRouter, usePathname } from '@/i18n/routing';
 import { useState, useEffect, useTransition, Fragment } from 'react';
 
-export type LocaleType = "pl" | "en" | undefined
+export type LocaleType = 'pl' | 'en' | undefined;
 
 export default function LocaleSwitcher({
   children,
@@ -44,19 +44,13 @@ export default function LocaleSwitcher({
           {children}
         </Listbox.Button>
         <Listbox.Options
-          className="
-               colors-dialog absolute
-               mt-0 translate-y-1 rounded-lg border-2 py-1 py-3
-               pl-4 pr-6 text-sm
-               font-normal tracking-tight">
+          className="colors-dialog absolute mt-0 translate-y-1 rounded-lg border-2 py-1 py-3 pl-4
+            pr-6 text-sm font-normal tracking-tight">
           {Object.entries(fullNames).map(([value, fullName]) => (
             <Listbox.Option key={value} value={value} as={Fragment}>
               <li
-                className="
-                  ui-active:colors-amplify-filter flex cursor-pointer items-center justify-start py-3
-                  pl-1 pr-2 text-base
-                  transition-[filter] md:py-1.5
-                  md:text-sm">
+                className="ui-active:colors-amplify-filter flex cursor-pointer items-center justify-start
+                  py-3 pl-1 pr-2 text-base transition-[filter] md:py-1.5 md:text-sm">
                 <span className="mr-[7px] h-3 w-3">
                   <IconDiamond />
                 </span>

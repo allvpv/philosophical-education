@@ -9,7 +9,7 @@ import {
 
 import ThemeSwitcher from './theme_switcher';
 import LocaleSwitcher from './locale_switcher';
-import { LocaleType } from  './locale_switcher';
+import { LocaleType } from './locale_switcher';
 import MonoToggle from './mono_toggle';
 import HeaderBackground from './header_background';
 import Nav from './nav';
@@ -24,20 +24,18 @@ const HeaderSeparator = () => (
 export default function Header({ locale }: { locale: string }) {
   const t = useTranslations('Themes');
   const themes = getThemesWithTranslation(t);
-  const localeSanitized = locale === "pl" ? "pl" : "en";
+  const localeSanitized = locale === 'pl' ? 'pl' : 'en';
 
   return (
     <React.Fragment>
       <HeaderBackground />
       <Logo />
       <nav
-        className="
-          colors-text-navbar min-[710px]:pl-7 relative mx-auto
-          flex h-full max-w-6xl items-center
-          justify-start gap-5 px-4 text-sm font-medium
-          md:gap-7 md:px-12 xs:px-6">
+        className="colors-text-navbar min-[710px]:pl-7 relative mx-auto flex h-full max-w-6xl
+          items-center justify-start gap-5 px-4 text-sm font-medium md:gap-7 md:px-12
+          xs:px-6">
         <span className="order-1">
-          <Nav locale={locale} />
+          <Nav />
         </span>
         <span className="order-2 mr-1 flex w-[82px] grow justify-start sm:justify-end">
           <LocaleSwitcherButton locale={localeSanitized} />
@@ -71,8 +69,8 @@ export function LocaleSwitcherButton({
   return (
     <LocaleSwitcher fullNames={fullNames} currentLocale={locale}>
       <span
-        className="colors-button-nav hover:colors-button-nav-amplify flex
-                   w-max items-center rounded-lg transition-colors">
+        className="colors-button-nav hover:colors-button-nav-amplify flex w-max items-center
+          rounded-lg transition-colors">
         <div className="py-1 pl-2.5 pr-[6px]">
           <IconGlobe />
         </div>
@@ -100,12 +98,7 @@ const LogoLegacy = () => (
 );
 
 const IconEye = () => (
-  <svg
-    fill="none"
-    viewBox="0 0 24 24"
-    className="
-      colors-eye h-[22px]
-      w-[22px]">
+  <svg fill="none" viewBox="0 0 24 24" className="colors-eye h-[22px] w-[22px]">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

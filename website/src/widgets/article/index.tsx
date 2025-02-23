@@ -1,18 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import clsx from 'clsx';
-import { memo } from 'react';
 
-import {
-  MutableRefObject,
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-} from 'react';
-import { Transition, Popover, Switch } from '@headlessui/react';
+import { useRef, useState, useEffect } from 'react';
+import { Popover, Switch } from '@headlessui/react';
 import { useSearchParams } from 'next/navigation';
 
 import { Issue, Article, ArticleAuthor } from '@/types';
@@ -103,8 +96,8 @@ export function ArticleWidget({
   return (
     <Popover
       className={clsx(
-        'before:colors-article-widget group/article relative ',
-        'before:absolute before:left-0 before:top-0 before:h-full before:w-full ',
+        'before:colors-article-widget group/article relative',
+        'before:absolute before:left-0 before:top-0 before:h-full before:w-full',
         'rounded-3xl before:rounded-3xl',
       )}
       id={article.id.toString()}
@@ -113,7 +106,7 @@ export function ArticleWidget({
         <ArticleWidgetHighlightHandler id={article.id} reference={ref}>
           <div
             className={clsx(
-              'pt-4 transition-transform duration-[600ms] ease-allvpv ',
+              'pt-4 transition-transform duration-[600ms] ease-allvpv',
               !options.showBibTeX && 'ui-open:translate-x-[-8px]',
               options.showBibTeX && 'ui-open:translate-x-[-16px]',
               'flex flex-col',
@@ -224,7 +217,8 @@ function ArticleAuthors({
           {i != 0 ? options.showORCID || options.showCEJSH ? <br /> : ', ' : ''}
           <a
             className={clsx(
-              'colors-author colors-author-decoration relative text-base underline decoration-[3px]',
+              `colors-author colors-author-decoration relative text-base underline
+              decoration-[3px]`,
               'cursor-pointer',
               options.showORCID && 'mr-1',
             )}
@@ -309,8 +303,8 @@ function ArticleTitle({
       </div>
       {options.showDOI && (
         <span
-          className="colors-title inline whitespace-nowrap
-                         text-xs font-normal underline decoration-[2px]">
+          className="colors-title inline whitespace-nowrap text-xs font-normal underline
+            decoration-[2px]">
           <a
             className="break-all"
             href={`https://doi.org/${article.doi}`}
@@ -350,13 +344,13 @@ function ArticleKeywords({
 
   return (
     <div
-      className="justify-intercharacter order-4 overflow-hidden break-all
-                 text-justify text-sm leading-relaxed">
+      className="justify-intercharacter order-4 overflow-hidden break-all text-justify text-sm
+        leading-relaxed">
       {localizedKeywords.map((k: any, i: number) => (
         <span key={i} className="first-of-type:odd:ml-7">
           <a
-            className="colors-keyword -mx-px cursor-pointer overflow-hidden rounded-lg
-                        border px-[6px] py-0 transition-colors"
+            className="colors-keyword -mx-px cursor-pointer overflow-hidden rounded-lg border px-[6px]
+              py-0 transition-colors"
             onClick={(e) => {
               // Make sure this constant (640) is synchronized with Tailwind „sm”
               // parameter TODO: Synchronize with Tailwind „sm” automatically.
@@ -443,21 +437,19 @@ function ArticleAbstract({ article, getLocalized }: any) {
       onClick={() => setClicked(!clicked)}>
       {showChevron && (
         <expandbutton
-          className="colors-abstract-expandbutton absolute right-0 top-0 ml-2 mr-0
-                     flex h-[28px] w-[40px]
-                     items-center justify-center rounded-md px-1.5
-                     group-[.unclicked]/abstract:[&_circle]:opacity-0
-                     group-[.clicked]/abstract:hoverable:[&_svg]:rotate-180">
+          className="colors-abstract-expandbutton absolute right-0 top-0 ml-2 mr-0 flex h-[28px]
+            w-[40px] items-center justify-center rounded-md px-1.5
+            group-[.unclicked]/abstract:[&_circle]:opacity-0
+            group-[.clicked]/abstract:hoverable:[&_svg]:rotate-180">
           <ChevronDown />
         </expandbutton>
       )}
       <div
-        className="hoverable:scrollbar-maclike
-                   hoverable:scrollbar-abstract-colors
-                   group-[.clicked]/abstract:overflow-y-scroll
-                   group-[.clicked]/abstract:overscroll-contain
-                   hoverable:[&::-webkit-scrollbar-track]:mb-[18px]
-                   hoverable:[&::-webkit-scrollbar-track]:mt-[28px]">
+        className="hoverable:scrollbar-maclike hoverable:scrollbar-abstract-colors
+          group-[.clicked]/abstract:overflow-y-scroll
+          group-[.clicked]/abstract:overscroll-contain
+          hoverable:[&::-webkit-scrollbar-track]:mb-[18px]
+          hoverable:[&::-webkit-scrollbar-track]:mt-[28px]">
         <expandbuttonplaceholder className="float-right ml-2 mr-0 h-[28px] w-[40px]" />
         <textcontainer
           /* `not-supports-lh` == @supports not (height: 1lh) */
@@ -506,8 +498,8 @@ const ArticleRegularOptions = ({
 }: any) => {
   return (
     <span
-      className="flex h-full w-[120px] flex-col items-center justify-start gap-2
-                 py-5 font-semibold">
+      className="flex h-full w-[120px] flex-col items-center justify-start gap-2 py-5
+        font-semibold">
       {hasORCID && (
         <ButtonSwitch
           childrenKnobOff={<IconEyeSlash />}
@@ -539,10 +531,9 @@ const ArticleRegularOptions = ({
       )}
       <div className="grow" />
       <span
-        className="colors-options-button-bibtex relative
-                   flex h-[28px] w-[96px] cursor-pointer items-center
-                   justify-end gap-2 rounded-lg px-2 text-sm font-medium
-                   transition-colors"
+        className="colors-options-button-bibtex relative flex h-[28px] w-[96px] cursor-pointer
+          items-center justify-end gap-2 rounded-lg px-2 text-sm font-medium
+          transition-colors"
         onClick={(bool) => setOption('showBibTeX', bool)}>
         BibTeX
         <svg
@@ -560,9 +551,9 @@ const ArticleRegularOptions = ({
         </svg>
       </span>
       <Popover.Button
-        className="colors-options-button-back relative flex h-[28px] w-[96px]
-                   cursor-pointer items-center justify-start gap-2
-                   rounded-lg px-2 text-sm font-normal transition-colors">
+        className="colors-options-button-back relative flex h-[28px] w-[96px] cursor-pointer
+          items-center justify-start gap-2 rounded-lg px-2 text-sm font-normal
+          transition-colors">
         <svg
           fill="none"
           viewBox="0 0 24 24"
@@ -628,7 +619,7 @@ function CopyBibTeXButton({ onClick, translations }: any) {
               'absolute left-0 top-0 h-full',
               !showCopied &&
                 'invisible ' +
-                  'opacity-0 transition-pass-[visibility_0s_step-end_500ms,opacity_150ms_350ms] ' +
+                  'opacity-0 transition-pass-[visibility_0s_step-end_500ms,opacity_150ms_350ms]' +
                   '[&_path]:animate-[tick-back_500ms_reverse_forwards]',
               showCopied &&
                 'visible opacity-100 [&_path]:animate-[tick_500ms_forwards]',
@@ -640,11 +631,11 @@ function CopyBibTeXButton({ onClick, translations }: any) {
               'shrink-1 mx-1.5 flex items-center justify-center overflow-hidden pl-6',
               !showCopied &&
                 'invisible ' +
-                  'transition-pass-[visibility_0s_step-end_300ms,opacity_100ms_ease-in_50ms] ' +
+                  'transition-pass-[visibility_0s_step-end_300ms,opacity_100ms_ease-in_50ms]' +
                   'opacity-0',
               showCopied &&
                 'visible ' +
-                  'transition-pass-[opacity_120ms_ease-in] ' +
+                  'transition-pass-[opacity_120ms_ease-in]' +
                   'opacity-100',
             )}>
             {translations.copiedText}
@@ -661,10 +652,9 @@ function ArticleBibTeX({ issue, article, translations, bibtex }: any) {
 
   return (
     <bibtexlisting
-      className="colors-bibtex-listing
-      grid h-[calc(100%-48px)] w-full
-      grid-cols-[min-content_1fr] overflow-x-hidden overflow-y-scroll
-      overscroll-none whitespace-nowrap text-xs font-normal">
+      className="colors-bibtex-listing grid h-[calc(100%-48px)] w-full
+        grid-cols-[min-content_1fr] overflow-x-hidden overflow-y-scroll overscroll-none
+        whitespace-nowrap text-xs font-normal">
       <bibtexlines className="colors-bibtex-lines relative h-full px-4 py-2 font-mono">
         {BibLines.map((_: any, i: number) => (
           <div key={i} className="text-right">
@@ -673,20 +663,19 @@ function ArticleBibTeX({ issue, article, translations, bibtex }: any) {
         ))}
       </bibtexlines>
       <bibtexcontent
-        className="colors-bibtex-content relative -ml-px overflow-x-scroll border-l px-2
-                   py-2 font-mono">
+        className="colors-bibtex-content relative -ml-px overflow-x-scroll border-l px-2 py-2
+          font-mono">
         {BibLines.map((line: any, i: number) => (
           <div key={i}>{line}</div>
         ))}
       </bibtexcontent>
       <bibtextoolbar
-        className="colors-bibtex-toolbar absolute bottom-0 left-0
-                   right-0 flex h-[48px] w-full items-center
-                   px-3">
+        className="colors-bibtex-toolbar absolute bottom-0 left-0 right-0 flex h-[48px] w-full
+          items-center px-3">
         <Popover.Button
-          className="colors-bibtex-toolbar-button relative ml-1 mr-2 inline-flex h-[28px]
-                     w-max cursor-pointer items-center justify-start gap-2 rounded-lg px-2
-                     text-sm font-normal transition-[filter]">
+          className="colors-bibtex-toolbar-button relative ml-1 mr-2 inline-flex h-[28px] w-max
+            cursor-pointer items-center justify-start gap-2 rounded-lg px-2 text-sm
+            font-normal transition-[filter]">
           <svg
             fill="none"
             viewBox="0 0 24 24"
@@ -722,8 +711,8 @@ const ButtonOrder = ({ ordinal_number }: any) => {
   return (
     <div
       className="group/button colors-button-light flex h-[28px] w-[72px] items-center
-                 justify-center whitespace-pre-wrap rounded-lg text-baseplus
-                 font-medium transition-colors duration-[300ms]">
+        justify-center whitespace-pre-wrap rounded-lg text-baseplus font-medium
+        transition-colors duration-[300ms]">
       <span className="text-default-900">1</span>
       <span className="text-default-700"> of 14</span>
     </div>
@@ -754,12 +743,12 @@ const ButtonLanguage = ({
         className={clsx(
           'absolute left-0 top-0 z-20 h-[28px] w-[38px]',
           'inline-flex items-center justify-center',
-          'rounded-lg transition-[transform] duration-[300ms] ease-allvpv will-change-transform',
+          `rounded-lg transition-[transform] duration-[300ms] ease-allvpv
+          will-change-transform`,
           'colors-button-medium split-specific',
           !isChecked && 'translate-x-0',
           isChecked && 'translate-x-[34px]',
-          !isChecked &&
-            'group-hover/button:translate-x-[4px] group-hover/button:translate-x-[4px]',
+          !isChecked && 'group-hover/button:translate-x-[4px]',
           isChecked && 'group-hover/button:translate-x-[30px]',
         )}>
         {localePrimary.toUpperCase()}
@@ -792,10 +781,8 @@ const ButtonSplit = ({ childrenLeft, childrenRight, onClick }: any) => (
     )}
     onClick={onClick}>
     <div
-      className="
-      colors-button-medium group-hover/button:colors-button-hard split-specific
-      flex grow-[1.3] items-center justify-center rounded-lg
-      transition-colors">
+      className="colors-button-medium group-hover/button:colors-button-hard split-specific flex
+        grow-[1.3] items-center justify-center rounded-lg transition-colors">
       {childrenLeft}
     </div>
     <div className="flex grow items-center justify-center pr-px">
@@ -859,7 +846,8 @@ export const ButtonSwitch = ({
     )}>
     <span
       className={clsx(
-        'absolute left-0 top-0 z-20 inline-flex h-[32px] w-[36px] items-center justify-center',
+        `absolute left-0 top-0 z-20 inline-flex h-[32px] w-[36px] items-center
+        justify-center`,
         'rounded-lg transition-[transform,background-color] duration-[300ms]',
         'cursor-pointer ease-allvpv',
         isActive && 'translate-x-[64px] group-hover/button:translate-x-[60px]',
@@ -886,8 +874,10 @@ export const ButtonSwitch = ({
     </span>
     <span
       className={clsx(
-        'absolute left-[36px] top-0 z-10 inline-flex h-[32px] w-[64px] items-center justify-center',
-        'px-[5px] transition-[transform,background-color] duration-[300ms] will-change-transform',
+        `absolute left-[36px] top-0 z-10 inline-flex h-[32px] w-[64px] items-center
+        justify-center`,
+        `px-[5px] transition-[transform,background-color] duration-[300ms]
+        will-change-transform`,
         'cursor-pointer ease-allvpv',
         isActive && 'translate-x-[-36px]',
         !isActive && 'translate-x-0',

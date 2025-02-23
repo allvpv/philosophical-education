@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import * as React from 'react';
 
 import { IssueStub } from '@/types';
@@ -94,9 +94,7 @@ export default function IssuesList({
   };
 
   return list.length > 0 ? (
-    <div
-      className="relative flex h-12 grow items-stretch overflow-visible
-                 transition-[height]">
+    <div className="relative flex h-12 grow items-stretch overflow-visible transition-[height]">
       {leftButtonVisible && (
         <>
           <ScrollButton
@@ -112,16 +110,16 @@ export default function IssuesList({
         </>
       )}
       <div
-        className="no-scrollbars absolute bottom-0 left-0 top-0 flex
-                   h-12 w-full items-center overflow-x-scroll"
+        className="no-scrollbars absolute bottom-0 left-0 top-0 flex h-12 w-full items-center
+          overflow-x-scroll"
         ref={scrolledListRef as any}>
         <div className="flex w-0 grow">
           <React.Fragment>
             {list.map((issue: IssueStub) => {
               const label =
                 locale === 'pl'
-                  ? issue.label_pl ?? issue.label_en
-                  : issue.label_en ?? issue.label_pl;
+                  ? (issue.label_pl ?? issue.label_en)
+                  : (issue.label_en ?? issue.label_pl);
 
               return (
                 <Link
@@ -170,17 +168,17 @@ const ScrollButton = ({
 }: any) => (
   <div
     className={
-      `w-max-content group flex h-full items-center ` +
-      `justify-center ${appendClass} colors-choice-chevron-bg overflow-visible ` +
-      (direction === `left` ? `flex-row-reverse` : ``)
+      'w-max-content group flex h-full items-center ' +
+      `justify-center ${appendClass} colors-choice-chevron-bg overflow-visible` +
+      (direction === 'left' ? 'flex-row-reverse' : '')
     }>
     <button
       className={
-        `hover:colors-choice-chevron-hover h-10 rounded-full sm:h-12 ` +
-        `-mr-2 flex items-center justify-center overflow-visible ` +
-        `transition-[width,opacity] duration-[150ms] ` +
-        `pointer-events-none group-hover:animate-[enable-pointer-events_160ms_forwards] ` +
-        `w-0 opacity-0 group-hover:w-10 group-hover:opacity-100 sm:group-hover:w-12`
+        'hover:colors-choice-chevron-hover h-10 rounded-full sm:h-12 ' +
+        '-mr-2 flex items-center justify-center overflow-visible' +
+        'transition-[width,opacity] duration-[150ms]' +
+        'pointer-events-none group-hover:animate-[enable-pointer-events_160ms_forwards]' +
+        'w-0 opacity-0 group-hover:w-10 group-hover:opacity-100 sm:group-hover:w-12'
       }
       onClick={nearJmp}>
       <span>
@@ -193,8 +191,8 @@ const ScrollButton = ({
     </button>
     <button
       className={
-        `hover:colors-choice-chevron-hover h-10 w-10 rounded-full sm:h-12 sm:w-12 ` +
-        `flex items-center justify-center overflow-visible`
+        'hover:colors-choice-chevron-hover h-10 w-10 rounded-full sm:h-12 sm:w-12 ' +
+        'flex items-center justify-center overflow-visible'
       }
       onClick={farJmp}>
       <Chevron
@@ -213,7 +211,7 @@ const ScrollGradient = ({ direction, appendClass = '' }: any) => {
   return (
     <data
       className={
-        `colors-choice-gradient h-full w-8 from-transparent sm:w-16 xs:w-12 ` +
+        'colors-choice-gradient h-full w-8 from-transparent sm:w-16 xs:w-12 ' +
         `pointer-events-none ${gradientDir} ${appendClass}`
       }
     />

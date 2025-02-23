@@ -2,28 +2,23 @@
 
 import {
   useState,
-  useLayoutEffect,
   useMemo,
   useRef,
   useEffect,
   Fragment,
-  Suspense,
   memo,
   lazy,
 } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-import { Popover, Listbox, Switch, Transition } from '@headlessui/react';
+import { Listbox, Switch, Transition } from '@headlessui/react';
 
 import { useDebounce } from 'use-debounce';
-import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 
-import { Issue, IssueStub } from '@/types';
+import { IssueStub } from '@/types';
 import { YearPicker } from './year_picker';
 import IssuesList from './issues_list';
-
-import getMasonry from '@/widgets/masonry';
 
 const SearchBloat = lazy(() => import('@/widgets/searchbloat'));
 const RangeButtonMemo = memo(RangeButton);
@@ -142,8 +137,8 @@ function Adjustments({
             'focus-visible:ring-offset-orange-300 sm:text-sm',
           )}>
           <ChevronLeft
-            className="h-3 w-3 transition-all duration-200 ease-in-out
-                       group-hover:mr-1 ui-open:mr-1 ui-open:rotate-180"
+            className="h-3 w-3 transition-all duration-200 ease-in-out group-hover:mr-1 ui-open:mr-1
+              ui-open:rotate-180"
             aria-hidden="true"
           />
           <span className="hidden sm:block">
@@ -154,8 +149,8 @@ function Adjustments({
           </span>
           <span className="block sm:hidden">{translations['include']}</span>
           <ChevronLeft
-            className="h-3 w-3 rotate-180 transition-all duration-500 ease-allvpv
-                       group-hover:ml-1 ui-open:ml-1 ui-open:rotate-0"
+            className="h-3 w-3 rotate-180 transition-all duration-500 ease-allvpv group-hover:ml-1
+              ui-open:ml-1 ui-open:rotate-0"
             aria-hidden="true"
           />
         </Listbox.Button>
@@ -165,17 +160,16 @@ function Adjustments({
           leaveFrom="opacity-100 mono:opacity-100"
           leaveTo="opacity-0">
           <Listbox.Options
-            className="min-w-50 absolute mt-1 overflow-auto rounded-xl
-                       py-2 text-base focus:outline-none
-                       mono:border-4 mono:border-black
-                       mono:bg-white sm:text-sm [.dark_&]:bg-default-700 [.light_&]:bg-default-150">
+            className="min-w-50 absolute mt-1 overflow-auto rounded-xl py-2 text-base
+              focus:outline-none mono:border-4 mono:border-black mono:bg-white sm:text-sm
+              [.dark_&]:bg-default-700 [.light_&]:bg-default-150">
             {allFields.map((field, i) => (
               <Listbox.Option
                 key={i}
                 className={({ active }) =>
-                  `relative cursor-pointer select-none py-2 pl-12 pr-7
-                  transition-colors duration-100 [.dark_&]:text-default-50 ${
-                    active
+                  `relative cursor-pointer select-none py-2 pl-12 pr-7 transition-colors
+                  duration-100 [.dark_&]:text-default-50 ${
+                  active
                       ? 'mono:underline [.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7]'
                       : '[.light_&]:text-amber-900 [.light_&]:text-default-900'
                   }`
@@ -189,9 +183,8 @@ function Adjustments({
                     </span>
                     {selected ? (
                       <span
-                        className="absolute inset-y-0 left-2 flex items-center pl-3
-                                   mono:underline [.dark_&]:text-amber-400
-                                   [.light_&]:text-amber-600">
+                        className="absolute inset-y-0 left-2 flex items-center pl-3 mono:underline
+                          [.dark_&]:text-amber-400 [.light_&]:text-amber-600">
                         <CheckIcon aria-hidden="true" />
                       </span>
                     ) : null}
@@ -209,12 +202,11 @@ function Adjustments({
         className="relative block overflow-visible">
         <Listbox.Button
           className="data-[dosort=no]:colors-search-include
-                     data-[dosort=yes]:colors-search-include-selected
-                     group flex h-[28px] max-w-full cursor-pointer items-center justify-center gap-1
-                     rounded-lg px-4 text-left font-medium transition-[background-color]
-                     focus:outline-none focus-visible:border-indigo-500
-                     focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2
-                     focus-visible:ring-offset-orange-300 sm:text-sm"
+            data-[dosort=yes]:colors-search-include-selected group flex h-[28px] max-w-full
+            cursor-pointer items-center justify-center gap-1 rounded-lg px-4 text-left
+            font-medium transition-[background-color] focus:outline-none
+            focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75
+            focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
           data-dosort={sortBy !== null ? 'yes' : 'no'}>
           <span className="flex items-center transition-all group-hover:mx-1 ui-open:mx-1">
             {translations['sort']} <ChevronUpDown />
@@ -226,27 +218,25 @@ function Adjustments({
           leaveFrom="opacity-100"
           leaveTo="opacity-0">
           <Listbox.Options
-            className="min-w-50 absolute right-0 mt-1 mt-1 overflow-auto rounded-xl
-                       py-2 text-base focus:outline-none mono:border-4 mono:border-black
-                       mono:bg-white sm:text-sm
-                       xs:right-auto [.dark_&]:bg-default-700 [.light_&]:bg-default-150">
+            className="min-w-50 absolute right-0 mt-1 overflow-auto rounded-xl py-2 text-base
+              focus:outline-none mono:border-4 mono:border-black mono:bg-white sm:text-sm
+              xs:right-auto [.dark_&]:bg-default-700 [.light_&]:bg-default-150">
             {allSort.map((field, i) => (
               <Listbox.Option
                 key={i}
                 className={({ active }) =>
                   `relative cursor-pointer select-none py-2 pl-6 pr-6 transition-colors
-                   duration-100 [.dark_&]:text-default-50 ${
-                     active
-                       ? 'mono:underline [.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7] [.light_&]:text-amber-900'
-                       : '[.light_&]:text-default-900'
-                   }`
+                  duration-100 [.dark_&]:text-default-50 ${
+                  active
+                      ? `mono:underline [.dark_&]:bg-yellow-600/[0.2] [.light_&]:bg-amber-100/[0.7]
+                        [.light_&]:text-amber-900`
+                      : '[.light_&]:text-default-900'
+                  }`
                 }
                 value={i}>
                 {({ selected }) => (
                   <span
-                    className={`block truncate ${
-                      selected ? 'font-bold' : 'font-normal'
-                    }`}>
+                    className={`block truncate ${selected ? 'font-bold' : 'font-normal'}`}>
                     {field}
                   </span>
                 )}
@@ -283,12 +273,12 @@ const ButtonLanguage = ({
         className={clsx(
           'absolute left-0 top-0 z-20 h-[28px] w-[38px]',
           'inline-flex items-center justify-center',
-          'rounded-lg transition-[transform] duration-[300ms] ease-allvpv will-change-transform',
+          `rounded-lg transition-[transform] duration-[300ms] ease-allvpv
+          will-change-transform`,
           'colors-button-medium split-specific',
           !isChecked && 'translate-x-0',
           isChecked && 'translate-x-[34px]',
-          !isChecked &&
-            'group-hover/button:translate-x-[4px] group-hover/button:translate-x-[4px]',
+          !isChecked && 'group-hover/button:translate-x-[4px]',
           isChecked && 'group-hover/button:translate-x-[30px]',
         )}>
         {localePrimary.toUpperCase()}
@@ -359,9 +349,8 @@ export function SearchBox(params: {
       <SearchIcon />
       <input
         placeholder={params.placeholder}
-        className="input-safari-fix h-full w-full appearance-none
-                   bg-transparent py-1.5 pr-3 text-base outline-none
-                   placeholder:text-current"
+        className="input-safari-fix h-full w-full appearance-none bg-transparent py-1.5 pr-3
+          text-base outline-none placeholder:text-current"
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="none"
@@ -384,7 +373,7 @@ function RangeButton(params: any) {
   return (
     <span
       className="order-2 flex h-10 w-12 shrink-0 items-center overflow-hidden transition-width
-                 data-[empty=no]:w-0 sm:w-auto"
+        data-[empty=no]:w-0 sm:w-auto"
       data-empty={params.isQueryEmpty ? 'yes' : 'no'}>
       <button
         className={clsx(
@@ -732,7 +721,8 @@ function SearchMagic({
       />
       <div
         className={clsx(
-          'relative order-1 mx-auto ml-1 mt-[22px] flex w-full items-start gap-3 sm:mt-[44px]',
+          `relative order-1 mx-auto ml-1 mt-[22px] flex w-full items-start gap-3
+          sm:mt-[44px]`,
           'justify-stretch pb-2 pl-[4px] sm:px-5 xs:px-1.5',
         )}>
         <div
@@ -747,12 +737,10 @@ function SearchMagic({
           )}>
           <div className="flex h-10 min-h-10 items-center">
             <div
-              className="colors-search-box font-regular relative z-40
-                         flex h-9 w-full items-center justify-stretch pl-2 text-base leading-6
-                         transition-[background-color,height]
-                         duration-300 focus-within:h-10
-                         data-[empty=no]:h-10 data-[empty=yes]:rounded-xl
-                         data-[empty=no]:rounded-t-xl maxwsm:data-[empty=no]:rounded-none"
+              className="colors-search-box font-regular relative z-40 flex h-9 w-full items-center
+                justify-stretch pl-2 text-base leading-6 transition-[background-color,height]
+                duration-300 focus-within:h-10 data-[empty=no]:h-10 data-[empty=yes]:rounded-xl
+                data-[empty=no]:rounded-t-xl maxwsm:data-[empty=no]:rounded-none"
               data-empty={isQueryEmpty ? 'yes' : 'no'}>
               <SearchBoxMemo
                 inputRef={inputRef}
@@ -775,10 +763,9 @@ function SearchMagic({
             </div>
           </div>
           <div
-            className="colors-search-popup block h-full w-full overflow-scroll
-                          overscroll-contain rounded-b-2xl border-x
-                          border-b data-[empty=yes]:hidden maxwsm:data-[empty=no]:rounded-none
-                          maxwsm:data-[empty=no]:border-none"
+            className="colors-search-popup block h-full w-full overflow-scroll overscroll-contain
+              rounded-b-2xl border-x border-b data-[empty=yes]:hidden
+              maxwsm:data-[empty=no]:rounded-none maxwsm:data-[empty=no]:border-none"
             data-empty={isQueryEmpty ? 'yes' : 'no'}>
             <div className="colors-search-helper sticky top-0 z-50 w-full py-2 maxwsm:z-[1000]">
               <Adjustments
@@ -876,7 +863,9 @@ export default function ChoiceBar({
       ) : (
         <div className="order-3 h-0 transition-[height]" />
       )}
-      <div className="order-4 flex w-full items-center justify-start px-0 pb-4 pt-1 sm:px-5 sm:pt-2 xs:px-1.5">
+      <div
+        className="order-4 flex w-full items-center justify-start px-0 pb-4 pt-1 sm:px-5 sm:pt-2
+          xs:px-1.5">
         <IssuesList
           list={listFiltered}
           locale={locale}

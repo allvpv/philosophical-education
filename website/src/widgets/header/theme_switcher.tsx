@@ -50,11 +50,8 @@ export default function ThemeSwitcher({ themes }: ThemeSwitcherProps) {
           {skeleton}
         </Listbox.Button>
         <Listbox.Options
-          className="
-                 colors-border colors-dialog absolute
-                 right-3 mt-0 translate-y-1 rounded-lg
-                 border-2 py-1 py-2
-                 text-sm font-medium tracking-tight">
+          className="colors-border colors-dialog absolute right-3 mt-0 translate-y-1 rounded-lg
+            border-2 py-1 py-2 text-sm font-medium tracking-tight">
           {themes.map((theme) => (
             <Listbox.Option
               key={`lst-${theme.value}`}

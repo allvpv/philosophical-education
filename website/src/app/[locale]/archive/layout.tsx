@@ -8,8 +8,6 @@ import { getContentMetadata } from '@/strapi_data';
 import { getIssuesList } from '@/strapi_data';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { IssuesList } from '@/types';
-
 import ChoiceBar from '@/widgets/choice';
 
 export async function generateMetadata({

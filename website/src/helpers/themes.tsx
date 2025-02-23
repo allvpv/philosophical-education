@@ -83,12 +83,7 @@ const IconBlackWhite = () => (
 );
 
 const IconWhiteBlack = () => (
-  <svg
-    fill="none"
-    viewBox="0 0 24 24"
-    className="
-      colors-eye h-[22px]
-      w-[22px]">
+  <svg fill="none" viewBox="0 0 24 24" className="colors-eye h-[22px] w-[22px]">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

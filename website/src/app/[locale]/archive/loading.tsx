@@ -18,11 +18,9 @@ const SuspenseItem = ({ empty }: { empty: boolean }) => {
   return (
     <div className="mb-[12px] min-w-[290px] max-w-[450px]">
       <div
-        className="loading-article-background relative flex h-full h-full min-h-[250px] flex-col
-                      items-center justify-center overflow-hidden overflow-hidden rounded-3xl
-                      pl-6
-                      before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0
-                      before:animate-shimmer">
+        className="loading-article-background relative flex h-full min-h-[250px] flex-col
+          items-center justify-center overflow-hidden rounded-3xl pl-6 before:absolute
+          before:bottom-0 before:left-0 before:right-0 before:top-0 before:animate-shimmer">
         {!empty && (
           <div className="relative animate-pulse">
             <div className="flex">

@@ -51,8 +51,8 @@ function SearchButton({ locale }: { locale: string }) {
 
   return (
     <button
-      className="colors-search-button flex h-8 w-full items-center
-                 rounded-lg py-1.5 pl-2 pr-3 text-sm leading-6 drop-shadow-sb transition-colors">
+      className="colors-search-button flex h-8 w-full items-center rounded-lg py-1.5 pl-2 pr-3
+        text-sm leading-6 drop-shadow-sb transition-colors">
       <svg
         width="24"
         height="24"

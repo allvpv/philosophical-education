@@ -3,7 +3,7 @@
 import { PageMetadata, CategoryMetadata } from '@/types';
 import * as React from 'react';
 import clsx from 'clsx';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 import {
   useRef,
@@ -107,7 +107,7 @@ const NavItem = forwardRef<HTMLElement, NavItemParams>(
           scroll={true}
           href={{ pathname: href }}
           className={clsx(
-            '-ml-[2px] block border-l-2 py-[2px] pl-4 transition-colors ',
+            '-ml-[2px] block border-l-2 py-[2px] pl-4 transition-colors',
             {
               'colors-nav-item-active font-semibold': isActive,
               'colors-nav-item-inactive ease-linear': !isActive,

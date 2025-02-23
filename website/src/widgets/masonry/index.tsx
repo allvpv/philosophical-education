@@ -49,8 +49,8 @@ export default function getMasonry(widgets: JSX.Element[]) {
 
   return (
     <div
-      className="gap-3 px-[10px] pb-[24px]
-                    pt-1 sm:columns-2 sm:px-[24px] sm:pt-[24px] lx:columns-3">
+      className="gap-3 px-[10px] pb-[24px] pt-1 sm:columns-2 sm:px-[24px] sm:pt-[24px]
+        lx:columns-3">
       {elements}
     </div>
   );

@@ -2,8 +2,7 @@
 
 import clsx from 'clsx';
 
-import Link from 'next/link';
-import { usePathname } from '@/navigation';
+import { Link, usePathname } from '@/i18n/routing';
 
 export default function ArchiveButton({ text }: { text: string }) {
   const pathname = usePathname();

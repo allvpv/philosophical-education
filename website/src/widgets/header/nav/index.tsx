@@ -1,18 +1,18 @@
-import { useTranslations } from 'next-intl';
+import { useTranslations, NextIntlClientProvider } from 'next-intl';
 import { Translator, NavItem } from '@/types';
 
 import ArchiveButton from './archive_button';
 import Hamburger from './hamburger';
 import NavItems from './nav_items';
 
-export default async function Nav({ locale }: { locale: string }) {
+export default async function Nav() {
   return (
     <nav className="flex items-center">
       <ul className="hidden flex-row items-center gap-3 sm:flex">
-        <NavBar locale={locale} />
+        <NavBar />
       </ul>
       <span className="-mr-3 block sm:hidden">
-        <HamburgerButton locale={locale} />
+        <HamburgerButton />
       </span>
     </nav>
   );
@@ -35,25 +35,28 @@ const getNavItems = (t: Translator, includeArchive: boolean): NavItem[] => {
   return includeArchive ? items.slice(0, -1) : items;
 };
 
-const NavBar = ({ locale }: { locale: string }) => {
+const NavBar = () => {
   const t = useTranslations('Header');
+  const archiveButton = <ArchiveButton text={t('archive')} />;
+  const navItems = getNavItems(t, true);
 
   return (
-    <NavItems
-      locale={locale}
-      navItems={getNavItems(t, true)}
-      archiveButton={<ArchiveButton text={t('archive')} />}
-    />
+    <NextIntlClientProvider>
+      <NavItems navItems={navItems} archiveButton={archiveButton} />
+    </NextIntlClientProvider>
   );
 };
 
-const HamburgerButton = ({ locale }: { locale: string }) => {
+const HamburgerButton = () => {
   const t = useTranslations('Header');
+  const navItems = getNavItems(t, false);
 
   return (
-    <Hamburger navItems={getNavItems(t, false)} locale={locale}>
-      <IconHamburger />
-    </Hamburger>
+    <NextIntlClientProvider>
+      <Hamburger navItems={navItems}>
+        <IconHamburger />
+      </Hamburger>
+    </NextIntlClientProvider>
   );
 };
 

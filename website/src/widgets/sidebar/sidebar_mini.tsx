@@ -82,13 +82,11 @@ export default function SidebarMiniContent({
 
   let displayCategory = (
     <span
-      className="colors-miniheader
-      ui-open:colors-miniheader-sidebar hover:colors-miniheader-sidebar colors-text-navbar
-      ui-not-open:borders-miniheader-collapsed ui-open:borders-miniheader-expanded
-      relative z-50 flex h-[48px]
-      items-center px-[calc(2%+0.60rem)]
-      text-sm backdrop-blur transition-colors
-      duration-300 hover:cursor-pointer">
+      className="colors-miniheader ui-open:colors-miniheader-sidebar
+        hover:colors-miniheader-sidebar colors-text-navbar
+        ui-not-open:borders-miniheader-collapsed ui-open:borders-miniheader-expanded
+        relative z-50 flex h-[48px] items-center px-[calc(2%+0.60rem)] text-sm
+        backdrop-blur transition-colors duration-300 hover:cursor-pointer">
       <div
         className={clsx(
           'mr-3 scale-[0.9] transition-opacity',
@@ -101,9 +99,8 @@ export default function SidebarMiniContent({
         <div className="h-full w-full translate-y-1/2">
           {/* (*) */}
           <div
-            className="
-            flex flex-row-reverse flex-wrap content-start
-            items-stretch justify-end gap-y-[99px]">
+            className="flex flex-row-reverse flex-wrap content-start items-stretch justify-end
+              gap-y-[99px]">
             <div
               className={clsx(
                 '-translate-y-1/2 truncate',
@@ -129,21 +126,16 @@ export default function SidebarMiniContent({
     <Popover as={React.Fragment}>
       <Popover.Button
         as="div"
-        className="
-            fixed bottom-[0px] z-50
-            order-[300] flex w-full
-            flex-col
-            transition-transform
-            duration-300 ease-[cubic-bezier(0,1,0.5,1)]
-            ui-open:translate-y-[calc(-100dvh+100%+64px-1px)] sm:hidden">
+        className="fixed bottom-[0px] z-50 order-[300] flex w-full flex-col transition-transform
+          duration-300 ease-[cubic-bezier(0,1,0.5,1)]
+          ui-open:translate-y-[calc(-100dvh+100%+64px-1px)] sm:hidden">
         {displayCategory}
         <Popover.Overlay
           static
-          className="colors-border colors-miniheader-sidebar
-              absolute top-[48px] z-10
-              flex h-[calc(100dvh-64px-48px+1px)] w-max items-start justify-start
-              overflow-y-scroll overscroll-contain scroll-smooth
-              border-r drop-shadow-2xl backdrop-blur md:hidden "
+          className="colors-border colors-miniheader-sidebar absolute top-[48px] z-10 flex
+            h-[calc(100dvh-64px-48px+1px)] w-max items-start justify-start overflow-y-scroll
+            overscroll-contain scroll-smooth border-r drop-shadow-2xl backdrop-blur
+            md:hidden"
           ref={containerRef}>
           <Popover.Panel static className="min-h-full max-w-[300px] px-8 pt-5">
             {({ close }) => (

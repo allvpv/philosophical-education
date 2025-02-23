@@ -1,6 +1,6 @@
-import nextIntlPlugin from 'next-intl/plugin';
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = nextIntlPlugin('./i18n.ts');
+const withNextIntl = createNextIntlPlugin();
 
 export default withNextIntl({
     output: 'standalone',

@@ -1,22 +1,13 @@
 import * as React from 'react';
 
-import { memo } from 'react';
 import { createInfiniteHitsSessionStorageCache } from 'instantsearch.js/es/lib/infiniteHitsCache';
-import { safelyRunOnBrowser } from 'instantsearch.js/es/lib/utils/safelyRunOnBrowser';
 
-import { useRef, useEffect, useMemo, useLayoutEffect, useState } from 'react';
+import { useRef, useMemo } from 'react';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { InstantSearch } from 'react-instantsearch';
-import {
-  useSearchBox,
-  useInstantSearch,
-  useConfigure,
-} from 'react-instantsearch';
+import { useSearchBox, useInstantSearch } from 'react-instantsearch';
 
 import { InfiniteHits } from '@/widgets/searchhit';
-import { SearchBox } from '@/widgets/choice';
-
-import { useTranslations } from 'next-intl';
 
 const meilisearchUrl = process.env.NEXT_PUBLIC_MEILISEARCH_URL as string;
 const meilisearchKey = process.env.NEXT_PUBLIC_MEILISEARCH_KEY as string;
@@ -42,8 +33,6 @@ function Search({ newQuery }: { newQuery: string }) {
 
   return <React.Fragment />;
 }
-
-function computeIndexName(fieldsMicroHash: number) {}
 
 function NoResultsBoundary({ children, fallback }: any) {
   const { results } = useInstantSearch();
@@ -77,8 +66,8 @@ function NoResults({ translations }: any) {
         </g>
       </svg>
       <p
-        className="max-w-full overflow-hidden
-                    truncate px-4 sm:max-w-xl [.dark_&]:text-default-100 [.light_&]:text-default-700">
+        className="max-w-full overflow-hidden truncate px-4 sm:max-w-xl [.dark_&]:text-default-100
+          [.light_&]:text-default-700">
         {translations['noResults']}
         <q className="font-semibold [.dark_&]:text-white [.light_&]:text-default-700">
           {indexUiState.query}

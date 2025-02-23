@@ -7,7 +7,7 @@ import { memo, MutableRefObject, useRef, useState, useEffect } from 'react';
 import { Transition, Popover, Switch } from '@headlessui/react';
 import AnimateHeight, { Height } from 'react-animate-height';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 import {
   Highlight,
@@ -130,9 +130,7 @@ export function InfiniteHits({
             ref={sentinelRef}
             className="mb-2 flex h-10 items-center justify-center"
             aria-hidden="true">
-            <div
-              className="dot-pulse dot-pulse-colors
-                            before:dot-pulse-colors after:dot-pulse-colors"></div>
+            <div className="dot-pulse dot-pulse-colors before:dot-pulse-colors after:dot-pulse-colors"></div>
           </li>
         )}
       </ul>
@@ -209,9 +207,9 @@ function SearchHitAuthors({ hit }: any) {
 
 const SearchHitIssue = ({ hit, locale }: any) => {
   const issueLabelWithLang = hit.issue
-    ? (locale === 'pl' ? hit.issue.label_pl : hit.issue.label_en) ??
+    ? ((locale === 'pl' ? hit.issue.label_pl : hit.issue.label_en) ??
       hit.issue.label_pl ??
-      hit.issue.label_en
+      hit.issue.label_en)
     : null;
 
   return issueLabelWithLang ? (
@@ -219,9 +217,8 @@ const SearchHitIssue = ({ hit, locale }: any) => {
       href={`${slugifyIssue(hit.issue.label_en, hit.issue.label_pl)}?highlight=${hit.id}`}
       scroll={false}>
       <button
-        className="colors-searchhit-download ml-2 flex
-                   w-24 items-center gap-1 rounded-lg px-2 py-0
-                   align-top text-sm font-medium transition-colors xs:w-auto">
+        className="colors-searchhit-download ml-2 flex w-24 items-center gap-1 rounded-lg px-2 py-0
+          align-top text-sm font-medium transition-colors xs:w-auto">
         <IconIssue />
         <p className="truncate">{issueLabelWithLang}</p>
         <IconExternal />
@@ -234,8 +231,8 @@ const SearchHitPdf = ({ hit }: any) => {
   return hit.pdf && hit.pdf.url ? (
     <a href={STRAPI_URL + hit.pdf.url} target="_blank">
       <button
-        className="colors-searchhit-download ml-2 inline rounded-lg px-2 py-0
-                   align-top text-sm font-medium transition-colors">
+        className="colors-searchhit-download ml-2 inline rounded-lg px-2 py-0 align-top text-sm
+          font-medium transition-colors">
         <span className="flex items-center gap-1">
           <IconDownload /> PDF
         </span>
@@ -268,7 +265,7 @@ const SearchHitKeywords = ({ hit, locale }: any) => {
   const keywordsWithLang = augmentFieldWithLang(hit, 'keywords', locale);
 
   return keywordsWithLang && isMarked(hit, keywordsWithLang) ? (
-    <span className="mb-1 text-sm text-sm italic [.dark_&]:text-default-200">
+    <span className="mb-1 text-sm italic [.dark_&]:text-default-200">
       <Highlight attribute={keywordsWithLang} hit={hit} />
     </span>
   ) : null;

@@ -94,8 +94,8 @@ function YearRange({
 
   return (
     <div
-      className="mr-3 h-[240px] cursor-default snap-y snap-mandatory
-                 overflow-auto overscroll-none sm:mr-5"
+      className="mr-3 h-[240px] cursor-default snap-y snap-mandatory overflow-auto
+        overscroll-none sm:mr-5"
       ref={containerRef as React.LegacyRef<HTMLDivElement>}
       onScroll={handleScroll}
       onKeyDown={handleKey}
@@ -147,7 +147,7 @@ export function YearPicker(params: {
       if (count == 1) {
         return 'numer';
       } else if (
-        (Math.floor(count / 10) % 10) != 1 &&
+        Math.floor(count / 10) % 10 != 1 &&
         count % 10 >= 2 &&
         count % 10 <= 4
       ) {
@@ -178,16 +178,22 @@ export function YearPicker(params: {
   return (
     <div
       className="colors-year-picker-default relative flex min-h-[240px] items-center
-                 justify-center">
+        justify-center">
       <div
-        className="pointer-events-none absolute bottom-0 left-0
-                   top-0 z-40 flex w-full flex-col items-stretch justify-between">
-        <div className="colors-year-picker-disappear-gradient h-[30px] w-full bg-gradient-to-t sm:h-[60px]" />
-        <div className="colors-year-picker-disappear-gradient h-[40px] w-full bg-gradient-to-b sm:h-[60px]" />
+        className="pointer-events-none absolute bottom-0 left-0 top-0 z-40 flex w-full flex-col
+          items-stretch justify-between">
+        <div
+          className="colors-year-picker-disappear-gradient h-[30px] w-full bg-gradient-to-t
+            sm:h-[60px]"
+        />
+        <div
+          className="colors-year-picker-disappear-gradient h-[40px] w-full bg-gradient-to-b
+            sm:h-[60px]"
+        />
       </div>
       <div
         className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 flex w-full flex-col
-                   items-center justify-center">
+          items-center justify-center">
         <div className="colors-year-picker-selected-area h-[40px] w-full max-w-[500px] rounded-xl" />
       </div>
       <div className="relative z-20 mr-2">{translations['from']}</div>
@@ -202,7 +208,7 @@ export function YearPicker(params: {
         setPickedYear={setSelectedTo}
         pickedYear={selectedTo}
       />
-      <div className="relative z-20 w-[90px] whitespace-nowrap ">
+      <div className="relative z-20 w-[90px] whitespace-nowrap">
         ({editionsCount} {getEditionsCountSuffixInLanguage(editionsCount)})
       </div>
     </div>

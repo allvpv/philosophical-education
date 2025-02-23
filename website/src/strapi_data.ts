@@ -138,11 +138,13 @@ async function getFromStrapi<T>(query: string): Promise<T> {
   };
 
   if (!STRAPI_URL) {
-    throw new Error("STRAPI_URL_INTERNAL or NEXT_PUBLIC_STRAPI_URL has to be set");
+    throw new Error(
+      'STRAPI_URL_INTERNAL or NEXT_PUBLIC_STRAPI_URL has to be set',
+    );
   }
 
   if (!STRAPI_KEY) {
-    throw new Error("STRAPI_SECRET_KEY has to be set");
+    throw new Error('STRAPI_SECRET_KEY has to be set');
   }
 
   const url = `${STRAPI_URL}/api/${query}`;

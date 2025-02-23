@@ -1,21 +1,18 @@
 'use client';
 
-import Link from 'next/link';
+import { Link, usePathname } from '@/i18n/routing';
 import clsx from 'clsx';
 
 import { PropsWithChildren } from 'react';
-import { usePathname } from '@/navigation';
 import { Listbox } from '@headlessui/react';
 
 import { NavItem } from '@/types';
 
 export default function Hamburger({
   navItems,
-  locale,
   children,
 }: PropsWithChildren<{
   navItems: NavItem[];
-  locale: string;
 }>) {
   const pathname = usePathname();
 
@@ -37,7 +34,6 @@ export default function Hamburger({
                 )}
                 key={i}>
                 <Link
-                  locale={locale}
                   href={item.href}
                   className="hover:colors-amplify-filter transition-[filter]">
                   {item.text}

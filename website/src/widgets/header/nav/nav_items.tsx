@@ -1,22 +1,23 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from '@/navigation';
+import { Link, usePathname } from '@/i18n/routing';
+import { useLocale } from 'next-intl';
 
 import { NavItem } from '@/types';
 
 import clsx from 'clsx';
 
 export default function NavItems({
-  locale,
   navItems,
   archiveButton,
 }: {
-  locale: string;
   navItems: NavItem[];
   archiveButton: JSX.Element;
 }) {
   const pathname = usePathname();
+  const locale = useLocale();
+
+  console.log(`Current link is ${locale}`);
 
   return (
     <>
@@ -30,10 +31,7 @@ export default function NavItems({
               isActive && 'colors-button-nav hover:colors-button-nav-amplify',
             )}
             key={i}>
-            <Link
-              className="px-[12.5px] py-1 xl:px-[15px]"
-              href={item.href}
-              locale={locale === 'pl' ? 'pl' : 'en'}>
+            <Link className="px-[12.5px] py-1 xl:px-[15px]" href={item.href}>
               {item.text}
             </Link>
           </li>

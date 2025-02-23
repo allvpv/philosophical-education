@@ -759,18 +759,10 @@ html.wb body {
 
   .colors-search-box {
     .light & {
-      @apply border border-default-150 bg-default-25 text-default-600
-             focus-within:bg-white focus-within:text-default-600
-             hover:bg-white
-             hover:text-default-600
-             data-[empty=no]:bg-white
-             data-[empty=no]:text-default-600;
+      @apply border border-default-150 bg-default-25 text-default-600 focus-within:bg-white focus-within:text-default-600 hover:bg-white hover:text-default-600 data-[empty=no]:bg-white data-[empty=no]:text-default-600;
     }
     .dark & {
-      @apply border border-default-700 bg-default-850 text-default-300
-             focus-within:bg-default-800
-             focus-within:text-default-100
-             hover:bg-default-800;
+      @apply border border-default-700 bg-default-850 text-default-300 focus-within:bg-default-800 focus-within:text-default-100 hover:bg-default-800;
     }
     .bw &,
     .wb & {
@@ -1422,13 +1414,11 @@ html.wb body {
 
   .colors-keyword {
     .light & {
-      @apply border-default-200 bg-default-200 text-black
-             hover:border-default-250 hover:bg-default-250 hover:text-default-950;
+      @apply border-default-200 bg-default-200 text-black hover:border-default-250 hover:bg-default-250 hover:text-default-950;
     }
 
     .dark & {
-      @apply border-default-600/[0.6] bg-default-700 text-default-100/[0.95]
-             hover:border-default-600/[0.8] hover:bg-default-600/[0.8] hover:text-default-100;
+      @apply border-default-600/[0.6] bg-default-700 text-default-100/[0.95] hover:border-default-600/[0.8] hover:bg-default-600/[0.8] hover:text-default-100;
     }
 
     .bw &,
@@ -1438,18 +1428,15 @@ html.wb body {
   }
 
   .before-overlay {
-    @apply before:absolute before:left-0 before:top-0
-           before:z-0 before:h-full before:w-full before:rounded-r-3xl before:content-[''];
+    @apply before:absolute before:left-0 before:top-0 before:z-0 before:h-full before:w-full before:rounded-r-3xl before:content-[''];
   }
 
   .colors-issue-button {
     .light & {
-      @apply bg-default-100 text-default-800
-             hover:bg-default-150 hover:text-default-900;
+      @apply bg-default-100 text-default-800 hover:bg-default-150 hover:text-default-900;
     }
     .dark & {
-      @apply bg-default-800 text-default-200
-             hover:bg-default-700 hover:text-default-100;
+      @apply bg-default-800 text-default-200 hover:bg-default-700 hover:text-default-100;
     }
     .bw &,
     .wb & {
