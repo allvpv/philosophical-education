@@ -112,11 +112,10 @@ docker-compose up -d --no-deps --scale website=2 --no-recreate website
 ```
 
 Once the service started and is healthy, use `docker ps` to obtain ID of the
-old and the new replica (look at `CREATED` timestamp). Stop the former and
-immediately purge the Nginx cache:
+old and the new replica (look at `CREATED` timestamp). Stop the former:
 
 ```
-docker stop <OLD_CONTAINER_ID> && rm -fr ./storage/nginx_cache/*
+docker stop <OLD_CONTAINER_ID>
 ```
 
 Test if everything works correctly.
@@ -128,7 +127,7 @@ Test if everything works correctly.
 * Alternatively, if there is a problem, you can rollback:
 
         docker start <OLD_CONTAINER_ID>
-        docker stop <NEW_CONTAINER_ID> && rm -fr ./storage/nginx_cache/*
+        docker stop <NEW_CONTAINER_ID>
         docker rm <NEW_CONTAINER_ID>
 
   Then, remember to `git reset` and rebuild the image to reference the old,
