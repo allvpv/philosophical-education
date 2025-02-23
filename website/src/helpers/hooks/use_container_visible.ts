@@ -7,7 +7,6 @@ export default function useContainerVisible(domElement: HTMLElement | null) {
     if (domElement) {
       let observer = new IntersectionObserver(
         (entries) => {
-          console.log('cb');
           setContainerVisible(entries[0].intersectionRatio > 0);
         },
         {

@@ -1,10 +1,7 @@
 'use client';
 
 import { Link, usePathname } from '@/i18n/routing';
-import { useLocale } from 'next-intl';
-
 import { NavItem } from '@/types';
-
 import clsx from 'clsx';
 
 export default function NavItems({
@@ -15,9 +12,6 @@ export default function NavItems({
   archiveButton: JSX.Element;
 }) {
   const pathname = usePathname();
-  const locale = useLocale();
-
-  console.log(`Current link is ${locale}`);
 
   return (
     <>
