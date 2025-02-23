@@ -39,7 +39,7 @@ services:
         source: ./storage/strapi_public
         target: /strapi_public
     healthcheck:
-      test: ["CMD-SHELL", "curl http://strapi/ | grep -i 'The server is running successfully'"]
+      test: ["CMD-SHELL", "curl http://$(cat /etc/hostname)/ | grep -i 'The server is running successfully'"]
       interval: 10s
       timeout: 5s
       retries: 30
@@ -66,7 +66,7 @@ services:
     command: >
       sh -c "/opt/website/bootstrap.sh"
     healthcheck:
-      test: ["CMD-SHELL", "curl http://website/api/healthz | grep -i 'All good'"]
+      test: ["CMD-SHELL", "curl http://$(cat /etc/hostname)/api/healthz | grep -i 'All good'"]
       interval: 10s
       timeout: 5s
       retries: 30
@@ -94,7 +94,7 @@ services:
     volumes:
       - ./storage/data.ms:/data.ms
     healthcheck:
-      test: ["CMD-SHELL", "curl http://meilisearch/health | grep -i 'available'"]
+      test: ["CMD-SHELL", "curl http://$(cat /etc/hostname)/health | grep -i 'available'"]
       interval: 10s
       timeout: 5s
       retries: 30
