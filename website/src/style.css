@@ -1098,7 +1098,7 @@ html.wb body {
 
   .colors-button-issue-hard {
     .light & {
-      @apply bg-default-300/[0.8] text-black;
+      @apply bg-default-500/[0.7];
     }
 
     .dark & {
