@@ -1011,6 +1011,19 @@ html.wb body {
     }
   }
 
+  .colors-issue-widget {
+    .light & {
+      @apply bg-gradient-to-t from-default-650 to-default-700;
+    }
+    .dark & {
+      @apply bg-gradient-to-t from-default-150 to-default-100 text-default-850;
+    }
+    .bw &,
+    .wb & {
+      @apply border-2 border-black bg-black text-white;
+    }
+  }
+
   .colors-options-overlay {
     .light &,
     .dark & {
@@ -1049,6 +1062,52 @@ html.wb body {
     .bw &,
     .wb & {
       @apply ring-1 ring-black;
+    }
+  }
+
+  .colors-button-issue-light {
+    .light & {
+      @apply bg-default-600/[0.8] text-default-100;
+    }
+
+    .dark & {
+      @apply bg-default-200/[0.9] text-default-800/[0.9];
+    }
+
+    .bw &,
+    .wb & {
+      @apply ring-1 ring-white;
+    }
+  }
+
+
+  .colors-button-issue-medium {
+    .light & {
+      @apply border-default-600 bg-default-500/[0.4] text-default-100;
+    }
+
+    .dark & {
+      @apply bg-default-300/[0.8] text-default-800/[0.9];
+    }
+
+    .bw &,
+    .wb & {
+      @apply ring-1 ring-white;
+    }
+  }
+
+  .colors-button-issue-hard {
+    .light & {
+      @apply bg-default-300/[0.8] text-black;
+    }
+
+    .dark & {
+      @apply bg-default-400/[0.8] text-default-800;
+    }
+
+    .bw &,
+    .wb & {
+      @apply ring-2 ring-white;
     }
   }
 
@@ -1107,6 +1166,37 @@ html.wb body {
     }
   }
 
+  .colors-issue-abstract {
+    .light & {
+      @apply bg-default-600 text-default-100;
+    }
+
+    .dark & {
+      @apply bg-default-200/[0.9] text-default-800;
+    }
+
+    .bw &,
+    .wb & {
+      @apply border border-white;
+    }
+  }
+
+  .colors-issue-abstract-expandbutton {
+    .light & {
+      @apply border-default-600 bg-default-500/[0.8] text-default-200;
+    }
+
+    .dark & {
+      @apply bg-default-300/[0.8] text-default-800/[0.9];
+      /* @apply ; */
+    }
+
+    .bw &,
+    .wb & {
+      @apply border-b border-l border-white;
+    }
+  }
+
   .colors-abstract {
     .light & {
       @apply bg-default-200/[0.7] text-black;
@@ -1137,12 +1227,48 @@ html.wb body {
     }
   }
 
+  .colors-decoration-issue {
+    .dark & {
+      @apply decoration-yellow-500;
+    }
+
+    .light & {
+      @apply text-default-100 decoration-yellow-500;
+    }
+  }
+
+  .colors-title-issue {
+    .light & {
+      @apply text-default-100;
+    }
+  }
+
   .colors-title {
     .light & {
       @apply text-black decoration-yellow-500;
     }
 
     .dark & {
+      @apply text-white decoration-amber-500;
+    }
+  }
+
+  .colors-issue-number {
+    .dark & {
+      @apply text-black decoration-yellow-500;
+    }
+
+    .light & {
+      @apply text-white decoration-amber-500;
+    }
+  }
+
+  .colors-issue-title {
+    .dark & {
+      @apply text-black decoration-yellow-500;
+    }
+
+    .light & {
       @apply text-white decoration-amber-500;
     }
   }

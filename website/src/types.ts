@@ -97,13 +97,14 @@ export type Issue = {
   edited_by: string;
   volume: number;
   year: number;
-  short_description_en: string;
-  short_description_pl: string;
-  long_description_en: string;
-  long_description_pl: string;
+  short_description_en: string | null;
+  short_description_pl: string | null;
+  long_description_en: string | null;
+  long_description_pl: string | null;
   label_en: string;
   label_pl: string;
   articles: Article[];
+  pdfUrl: string | null;
 };
 
 declare global {

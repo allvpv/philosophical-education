@@ -42,7 +42,7 @@ type StrapiArticleAuthor = StrapiEntry<{
   cejsh: string;
 }>;
 
-type StrapiArticlePdf = StrapiEntry<{
+type StrapiPdf = StrapiEntry<{
   name: string;
   url: string;
 }>;
@@ -56,7 +56,7 @@ type StrapiArticle = StrapiEntry<{
   pages: string;
   authors: StrapiData<Array<StrapiArticleAuthor>>;
   keywords: StrapiData<Array<StrapiArticleKeyword>>;
-  pdf: StrapiData<StrapiArticlePdf>;
+  pdf: StrapiData<StrapiPdf>;
 }>;
 
 ///
@@ -71,6 +71,7 @@ type StrapiIssue = StrapiEntry<{
   long_description_pl: string;
   label_en: string;
   label_pl: string;
+  pdf: StrapiData<StrapiPdf>;
   articles: StrapiData<Array<StrapiArticle>>;
 }>;
 
@@ -175,13 +176,15 @@ export async function getIssuesList(): Promise<IssuesList> {
     query,
   ).then((data) => data.reverse());
 
-  const list: IssueStub[] = response.map((issue: StrapiIssueStub) => ({
-    id: issue.id,
-    slug: slugifyIssue(issue.attributes.label_en, issue.attributes.label_pl),
-    label_en: issue.attributes.label_en,
-    label_pl: issue.attributes.label_pl,
-    year: issue.attributes.year,
-  }));
+  const list: IssueStub[] = response.map((issue: StrapiIssueStub) => {
+    return {
+      id: issue.id,
+      slug: slugifyIssue(issue.attributes.label_en, issue.attributes.label_pl),
+      label_en: issue.attributes.label_en,
+      label_pl: issue.attributes.label_pl,
+      year: issue.attributes.year,
+    }
+  });
 
   const slugToId = new Map(
     list.map((issue: IssueStub) => [issue.slug, issue.id]),
@@ -216,6 +219,9 @@ export async function getIssue(issueId: number): Promise<Issue> {
             },
           },
         },
+        pdf: {
+          fields: ['name', 'url'],
+        }
       },
     });
 
@@ -301,10 +307,19 @@ export async function getIssue(issueId: number): Promise<Issue> {
     year: response.attributes.year,
     short_description_en: response.attributes.short_description_en,
     short_description_pl: response.attributes.short_description_pl,
-    long_description_en: response.attributes.long_description_en,
-    long_description_pl: response.attributes.long_description_pl,
+    long_description_en: response.attributes.long_description_en ?
+        sanitizeHtml(
+          parse(response.attributes.long_description_en) as string,
+          sanitizeHtmlOptions
+        ) : null,
+    long_description_pl: response.attributes.long_description_pl ?
+        sanitizeHtml(
+          parse(response.attributes.long_description_pl) as string,
+          sanitizeHtmlOptions
+        ) : null,
     label_en: response.attributes.label_en,
     label_pl: response.attributes.label_pl,
+    pdfUrl: response.attributes.pdf?.data?.attributes?.url ?? null,
     articles: articles,
   };
 
@@ -404,6 +419,6 @@ export function getSanitizedPageContent(
   })}`;
 
   return getFromStrapi<StrapiPageContent>(queryPage).then((content) =>
-    sanitizeHtml(content.attributes.html, sanitizeHtmlOptions),
+    content.attributes.html,
   );
 }

@@ -7,7 +7,8 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { getIssuesList, getIssue } from '@/strapi_data';
-import { ArticleWidget } from '@/widgets/article';
+import { ArticleWidget } from '@/widgets/tile/article';
+import { IssueWidget } from '@/widgets/tile/issue';
 
 import getMasonry from '@/widgets/masonry';
 
@@ -78,7 +79,7 @@ export default async function ArchivePage({
     {} as Record<string, string>,
   );
 
-  let widgets = issue.articles.map((article: Article) => (
+  let articleWidgets = issue.articles.map((article: Article) => (
     <div
       className="min-w-[290px] max-w-[450px] pb-[6px] pt-[6px]"
       key={`${issue.label_en}-${article.number}`}>
@@ -90,6 +91,9 @@ export default async function ArchivePage({
       />
     </div>
   ));
+
+  let widgets = [<IssueWidget issue={issue} locale={locale} translations={translations} />]
+    .concat(articleWidgets);
 
   return getMasonry(widgets);
 }
