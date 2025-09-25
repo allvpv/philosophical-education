@@ -79,21 +79,28 @@ export default async function ArchivePage({
     {} as Record<string, string>,
   );
 
+  const WidgetWrapper = ({ key, children }: any) => (
+    <div className="min-w-[290px] max-w-[450px] pb-[6px] pt-[6px]" key={key}>
+      {children}
+    </div>
+  )
+
   let articleWidgets = issue.articles.map((article: Article) => (
-    <div
-      className="min-w-[290px] max-w-[450px] pb-[6px] pt-[6px]"
-      key={`${issue.label_en}-${article.number}`}>
+    <WidgetWrapper key={`${issue.label_en}-${article.number}`}>
       <ArticleWidgetMemoized
         translations={translations}
         issue={issue}
         article={article}
         locale={locale}
       />
-    </div>
+    </WidgetWrapper>
   ));
 
-  let widgets = [<IssueWidget issue={issue} locale={locale} translations={translations} />]
-    .concat(articleWidgets);
+  let widgets = [
+      <WidgetWrapper key={`${issue.label_en}-header`}>
+        <IssueWidget issue={issue} locale={locale} translations={translations}/>
+      </WidgetWrapper>
+  ].concat(articleWidgets);
 
   return getMasonry(widgets);
 }

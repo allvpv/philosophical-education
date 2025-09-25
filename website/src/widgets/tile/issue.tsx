@@ -62,7 +62,7 @@ export function IssueWidget({
   const hasUrl = !!downloadUrl;
 
   return (
-    <div className="flex flex-col colors-issue-widget rounded-3xl overflow-hidden my-2">
+    <div className="flex flex-col colors-issue-widget rounded-3xl overflow-hidden">
       <div className="block pt-4 pl-4 pb-1 pr-0 leading-tight">
         <IssueButtons
           options={options}
